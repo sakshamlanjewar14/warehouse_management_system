@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ProductService {
@@ -24,24 +25,27 @@ public class ProductService {
     }
 
     //Get product By Id
-    public Product getProductById(Long id){
-        return productRepository.findById(id).orElse(null);
+    public Product getProductById(Long productId){
+        return productRepository.findById(productId).orElse(null);
     }
 
     //Delete product by id
-    public void deleteProduct(Long id){
-        productRepository.deleteById(id);
+    public void deleteProduct(Long productId){
+        productRepository.deleteById(productId);
     }
 
-    public Product updateProduct(Long id, Product productDetails) {
-        Product product = productRepository.findById(id).orElse(null);
+    public Product updateProduct(Long productId, Product productDetails) {
+//        Checking the productId or  productDetailsId
+        if(!Objects.equals(productId, productDetails.getProductId())){
+            return null;
+        }
+        Product product = productRepository.findById(productId).orElse(null);
 
-        if (product!= null){
+        if (product != null){
             product.setName(productDetails.getName());
             product.setSku(productDetails.getSku());
             product.setDescription(productDetails.getDescription());
             product.setBarcode(productDetails.getBarcode());
-
             return productRepository.save(product);
         }
         return null;

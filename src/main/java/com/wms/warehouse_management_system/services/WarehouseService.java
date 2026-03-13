@@ -29,8 +29,20 @@ public class WarehouseService {
         return warehouseRepository.findById(id).orElse(null); //if id will not be there it will return null
     }
 
+//    Delete Warehouse
     public void deleteWarehouse(Long id){
         warehouseRepository.deleteById(id);
     }
 
+    public Warehouse updateWarehouse(Long warehouseId, Warehouse warehouseDetails) {
+        Warehouse warehouse = warehouseRepository.findById(warehouseId).orElse(null);
+        if (warehouse != null){
+            warehouse.setName(warehouseDetails.getName());
+            warehouse.setLocation(warehouseDetails.getLocation());
+            warehouse.setCapacity(warehouseDetails.getCapacity());
+
+            return warehouseRepository.save(warehouse);
+        }
+        return null;
+    }
 }
