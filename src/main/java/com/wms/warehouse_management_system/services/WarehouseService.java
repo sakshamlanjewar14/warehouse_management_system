@@ -45,4 +45,9 @@ public class WarehouseService {
         }
         return null;
     }
+
+    public void updateWarehouseCapacityByWarehouseId(Integer warehouseCapacity, Long warehouseId) {
+
+        warehouseRepository.updateWarehouseCapacityByWarehouseId(warehouseCapacity, warehouseId);
+    }
 }

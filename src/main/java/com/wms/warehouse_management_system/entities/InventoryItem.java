@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class InventoryItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long inventoryId;
+    private Long inventoryItemId;
 
     @Column
     private Integer quantity;

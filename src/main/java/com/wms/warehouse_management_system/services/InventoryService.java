@@ -6,15 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class InventoryService {
 
     @Autowired
-    public InventoryItemRepository inventoryItemRepository;
+    public  InventoryItemRepository inventoryItemRepository;
 
 //    Create inventory
-    public InventoryItem addInventory(InventoryItem inventory){
+    public InventoryItem createInventory(InventoryItem inventory){
         return inventoryItemRepository.save(inventory);
     }
 
@@ -29,16 +30,20 @@ public class InventoryService {
     }
 
 //    Update quantity
-    public InventoryItem updateQuantity(Long id, Integer quantity){
-        InventoryItem item = inventoryItemRepository.findById(id).orElse(null);
+    public InventoryItem updateInventory(Long inventoryItemId, InventoryItem inventoryItemDetails){
+        if(!Objects.equals(inventoryItemId, inventoryItemDetails )){
+            return  null;
+        }
+        InventoryItem item = inventoryItemRepository.findById(inventoryItemId).orElse(null);
         if(item != null){
-            item.setQuantity(quantity);
+            item.setQuantity(inventoryItemDetails.getQuantity());
+            item.setLastUpdated(inventoryItemDetails.getLastUpdated());
             return inventoryItemRepository.save(item);
         }
         return null;
     }
 
-//    Delete by id
+//    Delete inventory by id
     public void deleteInventory(Long id){
         inventoryItemRepository.deleteById(id);
     }

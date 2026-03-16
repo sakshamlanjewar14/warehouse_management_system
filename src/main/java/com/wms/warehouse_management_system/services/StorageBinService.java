@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class StorageBinService {
@@ -24,13 +25,28 @@ public class StorageBinService {
     }
 
 //    Get bins by id
-    public StorageBin getBinById(Long id){
-        return storageBinRepository.findById(id).orElse(null);
+    public StorageBin getBinById(Long storageBinId){
+        return storageBinRepository.findById(storageBinId).orElse(null);
+    }
+
+//    Update bin by id
+    public StorageBin updateBin(Long storageBinId, StorageBin storageBinDetails){
+        if(!Objects.equals(storageBinId, storageBinDetails.getBinId())){
+            return null;
+        }
+        StorageBin storageBin = storageBinRepository.findById(storageBinId).orElse(null);
+
+        if(storageBin != null){
+            storageBin.setBinCode(storageBinDetails.getBinCode());
+            storageBin.setCapacity(storageBinDetails.getCapacity());
+            return storageBinRepository.save(storageBin);
+        }
+        return  null;
     }
 
 //    Delete bin by id
-    public void deleteBin(Long id){
-        storageBinRepository.deleteById(id);
+    public void deleteBin(Long storageBinId){
+        storageBinRepository.deleteById(storageBinId);
     }
 
 }

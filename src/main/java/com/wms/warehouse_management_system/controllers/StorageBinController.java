@@ -1,0 +1,80 @@
+package com.wms.warehouse_management_system.controllers;
+
+
+import com.wms.warehouse_management_system.common.ApiResponse;
+import com.wms.warehouse_management_system.entities.StorageBin;
+import com.wms.warehouse_management_system.services.StorageBinService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/v1/storagebins")
+public class StorageBinController {
+
+    private final StorageBinService storageBinService;
+
+    public StorageBinController(StorageBinService storageBinService) {
+        this.storageBinService = storageBinService;
+    }
+
+    @PostMapping
+    public ResponseEntity<ApiResponse<StorageBin>> createBin(@RequestBody StorageBin storageBin){
+        try {
+            StorageBin savedStorageBin = storageBinService.createBin(storageBin);
+            return ResponseEntity.ok(ApiResponse.success(savedStorageBin));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ApiResponse.error(e.getMessage()));
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<StorageBin>>> getAllBin(){
+        List<StorageBin> allBins = storageBinService.getAllBins();
+        if(allBins.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ApiResponse.error("StorageBins Not Found"));
+        }
+        return ResponseEntity.ok(ApiResponse.success(allBins));
+    }
+
+    @GetMapping("/{storageBinId}")
+    public ResponseEntity<ApiResponse<StorageBin>> getBinById(@PathVariable ("storageBinId") Long storageBinId){
+        StorageBin binById = storageBinService.getBinById(storageBinId);
+        if(binById == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ApiResponse.error("Storage bin not found for this id"+storageBinId));
+        }
+        return ResponseEntity.ok(ApiResponse.success(binById));
+    }
+
+    @PutMapping("/{storageBinId}")
+    public ResponseEntity<ApiResponse<StorageBin>> updateBin(@PathVariable ("storageBinId") Long storageBinId, @RequestBody StorageBin storageBin){
+        try {
+            StorageBin updatedStorageBin = storageBinService.updateBin(storageBinId, storageBin);
+            if(updatedStorageBin == null){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(ApiResponse.error("Storage bin not found"));
+            }
+            return ResponseEntity.ok(ApiResponse.success(updatedStorageBin));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ApiResponse.error(e.getMessage()));
+        }
+    }
+
+    @DeleteMapping("/{storageBinId}")
+    public ResponseEntity<ApiResponse<String>> deleteBin(@PathVariable("storageBinId") Long storageBinId){
+        try {
+            storageBinService.deleteBin(storageBinId);
+            return ResponseEntity.ok(ApiResponse.success("Storagebin with id" +storageBinId+ "deleted successfully"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ApiResponse.error(e.getMessage()));
+        }
+    }
+
+}
