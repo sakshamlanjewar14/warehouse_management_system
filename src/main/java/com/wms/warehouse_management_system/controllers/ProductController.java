@@ -21,6 +21,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ApiResponse<Product>> createProduct(@RequestBody Product product){
+        System.out.println("product::"+product);
         try{
             Product savedProduct = productService.createProduct(product);
             return ResponseEntity.ok(ApiResponse.success(savedProduct));

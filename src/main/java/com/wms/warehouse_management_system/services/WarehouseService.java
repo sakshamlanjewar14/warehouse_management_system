@@ -1,18 +1,20 @@
 package com.wms.warehouse_management_system.services;
 
 
+import com.wms.warehouse_management_system.entities.StorageBin;
 import com.wms.warehouse_management_system.entities.Warehouse;
 import com.wms.warehouse_management_system.repositorys.WarehouseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
+@RequiredArgsConstructor
 public class WarehouseService {
 
-    @Autowired
-    private WarehouseRepository warehouseRepository;
+    private final WarehouseRepository warehouseRepository;
 
 //    Craete warehouse
     public Warehouse createWarehouse(Warehouse warehouse){
@@ -46,8 +48,8 @@ public class WarehouseService {
         return null;
     }
 
-    public void updateWarehouseCapacityByWarehouseId(Integer warehouseCapacity, Long warehouseId) {
-
-        warehouseRepository.updateWarehouseCapacityByWarehouseId(warehouseCapacity, warehouseId);
+    public void updateWarehouseCapacityByWarehouseId(List<StorageBin> storageBinList, Long warehouseId) {
+        Integer sumOfAllStorageBinsCapacity = storageBinList.stream().mapToInt(StorageBin::getCapacity).sum();
+        warehouseRepository.updateWarehouseCapacityByWarehouseId(sumOfAllStorageBinsCapacity, warehouseId);
     }
 }

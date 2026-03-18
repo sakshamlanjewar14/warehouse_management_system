@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Warehouse {
+public class Warehouse extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long warehouseId;
@@ -31,10 +31,6 @@ public class Warehouse {
 
     @Column
     private Integer capacity;
-
-    @Column(nullable = false, updatable = false)
-    @CreatedDate
-    private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "warehouse") //One Warehouse → Many StorageBins
     private List<StorageBin> storageBins;

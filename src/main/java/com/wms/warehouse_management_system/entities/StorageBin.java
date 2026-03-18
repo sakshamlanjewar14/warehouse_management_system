@@ -1,6 +1,7 @@
 package com.wms.warehouse_management_system.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wms.warehouse_management_system.dtos.StorageBinResponseDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +20,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class StorageBin {
+public class StorageBin extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long binId;
@@ -30,10 +31,6 @@ public class StorageBin {
     @Column
     private Integer capacity;
 
-    @Column(nullable = false, updatable = false)
-    @CreatedDate
-    private LocalDateTime createdAt;
-
     @ManyToOne //Many StorageBins → One Warehouse
     @JoinColumn(name = "warehouse_id")
     @JsonIgnore
@@ -41,4 +38,14 @@ public class StorageBin {
 
     @OneToMany(mappedBy = "storageBin") //One StorageBin → Many InventoryItems
     private List<InventoryItem> inventoryItems;
+
+    public StorageBinResponseDto toResponseDto() {
+        StorageBinResponseDto storageBinResponseDto = new StorageBinResponseDto();
+        storageBinResponseDto.setBinId(this.getBinId());
+        storageBinResponseDto.setBinCode(this.getBinCode());
+        storageBinResponseDto.setCapacity(this.getCapacity());
+        storageBinResponseDto.setWarehouseName(this.getWarehouse().getName());
+        storageBinResponseDto.setInventoryItems(this.getInventoryItems());
+        return storageBinResponseDto;
+    }
 }

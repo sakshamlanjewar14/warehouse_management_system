@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -40,9 +41,16 @@ public class DatabaseInitializer implements CommandLineRunner {
                 product.setSku("sku-" + (i + 1));
                 product.setDescription("Product description " + (i + 1));
                 product.setBarcode(String.valueOf(i + 1000000));
+                product.setPrice(BigDecimal.valueOf(getRandomDoubleValue(100.0,100000.0)));
+                product.setWeight(getRandomDoubleValue(100.0,1000.0));
+                product.setImageUrl("https://placehold.jp/24/3a4a5b/ffffff/400x400.png?text=No+Product+Image");
                 productService.createProduct(product);
             }
         }
+    }
+
+    private double getRandomDoubleValue(double min,double max) {
+       return min + (Math.random() * (max - min));
     }
 
     void generateAndStoreWarehousesInDB() {
@@ -54,9 +62,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                 warehouse.setCapacity(0);
                 Warehouse savedWarehouse = warehouseService.createWarehouse(warehouse);
                 List<StorageBin> storageBinList = generateStorageBinForWarehouse(savedWarehouse, (i + 2));
-                storageBinList.forEach(storageBinService::createBin);
-                Integer sumOfAllStorageBinsCapacity = storageBinList.stream().mapToInt(StorageBin::getCapacity).sum();
-                warehouseService.updateWarehouseCapacityByWarehouseId(sumOfAllStorageBinsCapacity, savedWarehouse.getWarehouseId());
+                storageBinList.forEach(storageBin -> storageBinService.createBin(savedWarehouse.getWarehouseId(), storageBin));
             }
         }
 

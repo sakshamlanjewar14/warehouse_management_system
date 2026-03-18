@@ -46,6 +46,9 @@ public class ProductService {
             product.setSku(productDetails.getSku());
             product.setDescription(productDetails.getDescription());
             product.setBarcode(productDetails.getBarcode());
+            product.setPrice(productDetails.getPrice());
+            product.setWeight(productDetails.getWeight());
+            product.setImageUrl(productDetails.getImageUrl());
             return productRepository.save(product);
         }
         return null;

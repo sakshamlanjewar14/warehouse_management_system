@@ -2,6 +2,7 @@ package com.wms.warehouse_management_system.controllers;
 
 
 import com.wms.warehouse_management_system.common.ApiResponse;
+import com.wms.warehouse_management_system.dtos.StorageBinResponseDto;
 import com.wms.warehouse_management_system.entities.StorageBin;
 import com.wms.warehouse_management_system.services.StorageBinService;
 import org.springframework.http.HttpStatus;
@@ -20,10 +21,12 @@ public class StorageBinController {
         this.storageBinService = storageBinService;
     }
 
-    @PostMapping
-    public ResponseEntity<ApiResponse<StorageBin>> createBin(@RequestBody StorageBin storageBin){
+    @PostMapping("/{warehouseId}")
+    public ResponseEntity<ApiResponse<StorageBinResponseDto>> createBin(
+            @PathVariable ("warehouseId") Long warehouseId,
+            @RequestBody StorageBin storageBin){
         try {
-            StorageBin savedStorageBin = storageBinService.createBin(storageBin);
+            StorageBinResponseDto savedStorageBin = storageBinService.createBin(warehouseId, storageBin);
             return ResponseEntity.ok(ApiResponse.success(savedStorageBin));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -32,8 +35,8 @@ public class StorageBinController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<StorageBin>>> getAllBin(){
-        List<StorageBin> allBins = storageBinService.getAllBins();
+    public ResponseEntity<ApiResponse<List<StorageBinResponseDto>>> getAllBin(){
+        List<StorageBinResponseDto> allBins = storageBinService.getAllBins();
         if(allBins.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ApiResponse.error("StorageBins Not Found"));
@@ -42,8 +45,8 @@ public class StorageBinController {
     }
 
     @GetMapping("/{storageBinId}")
-    public ResponseEntity<ApiResponse<StorageBin>> getBinById(@PathVariable ("storageBinId") Long storageBinId){
-        StorageBin binById = storageBinService.getBinById(storageBinId);
+    public ResponseEntity<ApiResponse<StorageBinResponseDto>> getBinById(@PathVariable ("storageBinId") Long storageBinId){
+        StorageBinResponseDto binById = storageBinService.getBinById(storageBinId);
         if(binById == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ApiResponse.error("Storage bin not found for this id"+storageBinId));
@@ -51,10 +54,13 @@ public class StorageBinController {
         return ResponseEntity.ok(ApiResponse.success(binById));
     }
 
-    @PutMapping("/{storageBinId}")
-    public ResponseEntity<ApiResponse<StorageBin>> updateBin(@PathVariable ("storageBinId") Long storageBinId, @RequestBody StorageBin storageBin){
+    @PutMapping("/{warehouseId}/{storageBinId}")
+    public ResponseEntity<ApiResponse<StorageBinResponseDto>> updateBin(
+            @PathVariable ("warehouseId") Long warehouseId,
+            @PathVariable ("storageBinId") Long storageBinId,
+            @RequestBody StorageBin storageBin){
         try {
-            StorageBin updatedStorageBin = storageBinService.updateBin(storageBinId, storageBin);
+            StorageBinResponseDto updatedStorageBin = storageBinService.updateBin(warehouseId, storageBinId, storageBin);
             if(updatedStorageBin == null){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(ApiResponse.error("Storage bin not found"));
@@ -66,10 +72,12 @@ public class StorageBinController {
         }
     }
 
-    @DeleteMapping("/{storageBinId}")
-    public ResponseEntity<ApiResponse<String>> deleteBin(@PathVariable("storageBinId") Long storageBinId){
+    @DeleteMapping("/{warehouseId}/{storageBinId}")
+    public ResponseEntity<ApiResponse<String>> deleteBin(
+            @PathVariable ("warehouseId") Long warehouseId,
+            @PathVariable("storageBinId") Long storageBinId){
         try {
-            storageBinService.deleteBin(storageBinId);
+            storageBinService.deleteBin(warehouseId, storageBinId);
             return ResponseEntity.ok(ApiResponse.success("Storagebin with id" +storageBinId+ "deleted successfully"));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

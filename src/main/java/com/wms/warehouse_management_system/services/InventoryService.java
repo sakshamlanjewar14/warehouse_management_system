@@ -37,7 +37,6 @@ public class InventoryService {
         InventoryItem item = inventoryItemRepository.findById(inventoryItemId).orElse(null);
         if(item != null){
             item.setQuantity(inventoryItemDetails.getQuantity());
-            item.setLastUpdated(inventoryItemDetails.getLastUpdated());
             return inventoryItemRepository.save(item);
         }
         return null;

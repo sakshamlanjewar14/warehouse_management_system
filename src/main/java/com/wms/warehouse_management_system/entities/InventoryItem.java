@@ -14,16 +14,13 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class InventoryItem {
+public class InventoryItem extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long inventoryItemId;
 
     @Column
     private Integer quantity;
-
-    @Column
-    private LocalDateTime lastUpdated;
 
     @ManyToOne //Many InventoryItems → One Product
     @JoinColumn(name = "product_id")
