@@ -19,7 +19,7 @@ public class InventoryItem extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long inventoryItemId;
 
-    @Column
+    @Column(nullable = false)
     private Integer quantity;
 
     @ManyToOne //Many InventoryItems → One Product
