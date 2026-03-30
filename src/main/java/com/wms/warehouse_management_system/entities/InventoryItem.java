@@ -1,5 +1,7 @@
 package com.wms.warehouse_management_system.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wms.warehouse_management_system.dtos.InventoryItemResponseDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,9 +26,20 @@ public class InventoryItem extends BaseEntity{
 
     @ManyToOne //Many InventoryItems → One Product
     @JoinColumn(name = "product_id")
+    @JsonIgnore
     private Product product;
 
     @ManyToOne  //Many InventoryItems → One StorageBin
     @JoinColumn(name = "bin_id")
+    @JsonIgnore
     private StorageBin storageBin;
+
+    public InventoryItemResponseDto toResponseDto(){
+        InventoryItemResponseDto inventoryItemResponseDto = new InventoryItemResponseDto();
+        inventoryItemResponseDto.setInventoryItemId(this.getInventoryItemId());
+        inventoryItemResponseDto.setQuantity(this.getQuantity());
+        inventoryItemResponseDto.setProductName(this.getProduct().getName());
+        inventoryItemResponseDto.setStorageBinCode(this.getStorageBin().getBinCode());
+        return inventoryItemResponseDto;
+    }
 }

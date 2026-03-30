@@ -1,6 +1,8 @@
 package com.wms.warehouse_management_system.controllers;
 
 import com.wms.warehouse_management_system.common.ApiResponse;
+import com.wms.warehouse_management_system.dtos.InventoryItemRequestDto;
+import com.wms.warehouse_management_system.dtos.InventoryItemResponseDto;
 import com.wms.warehouse_management_system.entities.InventoryItem;
 import com.wms.warehouse_management_system.services.InventoryService;
 import org.springframework.http.HttpStatus;
@@ -20,10 +22,11 @@ public class InventoryItemController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<InventoryItem>> createInventoryItem(@RequestBody InventoryItem inventoryItem){
+    public ResponseEntity<ApiResponse<List<InventoryItemResponseDto>>> createInventoryItem(
+            @RequestBody InventoryItemRequestDto inventoryItemRequestDto){
         try{
-            InventoryItem savedinventory = inventoryService.createInventory(inventoryItem);
-            return ResponseEntity.ok(ApiResponse.success(savedinventory));
+            List<InventoryItemResponseDto> inventoryItemResponseDtos = inventoryService.createInventory(inventoryItemRequestDto);
+            return ResponseEntity.ok(ApiResponse.success(inventoryItemResponseDtos));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(ApiResponse.error(e.getMessage()));
@@ -31,8 +34,8 @@ public class InventoryItemController {
     }
     
     @GetMapping
-    public ResponseEntity<ApiResponse<List<InventoryItem>>> getAllItem(){
-        List<InventoryItem> allInventory = inventoryService.getAllInventory();
+    public ResponseEntity<ApiResponse<List<InventoryItemResponseDto>>> getAllItem(){
+        List<InventoryItemResponseDto> allInventory = inventoryService.getAllInventory();
         if (allInventory.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ApiResponse.error("Inventoryitem not found"));

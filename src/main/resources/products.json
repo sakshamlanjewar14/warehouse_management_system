@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Wireless Noise-Cancelling Headphones",
+    "sku": "AUDIO-WNC-001",
+    "description": "Premium over-ear headphones with active noise cancellation, 30-hour battery life, and foldable design for travel.",
+    "barcode": "8901234567890",
+    "price": 149.99,
+    "weight": 0.28,
+    "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format"
+  },
+  {
+    "name": "Stainless Steel Water Bottle",
+    "sku": "KITC-SSB-002",
+    "description": "Double-wall insulated 750ml water bottle. Keeps drinks cold for 24 hours and hot for 12 hours.",
+    "barcode": "8901234567891",
+    "price": 34.99,
+    "weight": 0.35,
+    "imageUrl": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=600&auto=format"
+  },
+  {
+    "name": "Mechanical Gaming Keyboard",
+    "sku": "TECH-MKB-003",
+    "description": "Tenkeyless RGB mechanical keyboard with Cherry MX Blue switches, per-key lighting, and detachable USB-C cable.",
+    "barcode": "8901234567892",
+    "price": 89.99,
+    "weight": 0.72,
+    "imageUrl": "https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=600&auto=format"
+  },
+  {
+    "name": "Leather Minimalist Wallet",
+    "sku": "ACCS-LMW-004",
+    "description": "Slim genuine leather wallet with 6 card slots, RFID blocking, and a cash compartment. Available in black and tan.",
+    "barcode": "8901234567893",
+    "price": 49.95,
+    "weight": 0.06,
+    "imageUrl": "https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&auto=format"
+  },
+  {
+    "name": "Portable Espresso Maker",
+    "sku": "KITC-PEM-005",
+    "description": "Hand-powered portable espresso machine compatible with ground coffee and Nespresso pods. No electricity needed.",
+    "barcode": "8901234567894",
+    "price": 69.99,
+    "weight": 0.44,
+    "imageUrl": "https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=600&auto=format"
+  },
+  {
+    "name": "Yoga Mat Pro",
+    "sku": "SPRT-YMP-006",
+    "description": "6mm thick non-slip TPE yoga mat with alignment lines, carrying strap, and moisture-resistant surface. 183cm x 61cm.",
+    "barcode": "8901234567895",
+    "price": 54.99,
+    "weight": 1.2,
+    "imageUrl": "https://images.unsplash.com/photo-1601925228120-8e4b3a8a6a9b?w=600&auto=format"
+  },
+  {
+    "name": "Ceramic Pour-Over Coffee Set",
+    "sku": "KITC-CPO-007",
+    "description": "Handcrafted ceramic dripper with glass carafe and reusable stainless steel filter. Brews up to 600ml.",
+    "barcode": "8901234567896",
+    "price": 42,
+    "weight": 0.68,
+    "imageUrl": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&auto=format"
+  },
+  {
+    "name": "Wireless Charging Pad",
+    "sku": "TECH-WCP-008",
+    "description": "15W Qi-certified wireless charger compatible with iPhone and Android. LED indicator, anti-slip base, 1m cable included.",
+    "barcode": "8901234567897",
+    "price": 29.99,
+    "weight": 0.14,
+    "imageUrl": "https://images.unsplash.com/photo-1614440246067-d48d57a69db3?w=600&auto=format"
+  },
+  {
+    "name": "Hardcover Dotted Journal",
+    "sku": "STAT-HDJ-009",
+    "description": "200-page A5 dotted notebook with lay-flat binding, ribbon bookmark, and thick 120gsm paper. Acid-free.",
+    "barcode": "8901234567898",
+    "price": 18.5,
+    "weight": 0.32,
+    "imageUrl": "https://images.unsplash.com/photo-1517971129774-8a2b38fa128e?w=600&auto=format"
+  },
+  {
+    "name": "Bamboo Desk Organizer",
+    "sku": "HOME-BDO-010",
+    "description": "5-compartment bamboo desktop organizer for pens, scissors, phone, and stationery. Natural finish, eco-friendly material.",
+    "barcode": "8901234567899",
+    "price": 27,
+    "weight": 0.55,
+    "imageUrl": "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&auto=format"
+  }
+]

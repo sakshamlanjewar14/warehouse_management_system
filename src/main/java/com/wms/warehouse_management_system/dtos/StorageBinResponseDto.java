@@ -10,7 +10,8 @@ import java.util.List;
 public class StorageBinResponseDto {
     private Long binId;
     private String binCode;
-    private Integer capacity;
+    private Integer totalCapacity;
+    private Integer availableCapacity;
     private String warehouseName;
     private List<InventoryItem> inventoryItems;
 }

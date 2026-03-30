@@ -11,6 +11,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -36,14 +37,18 @@ public class StorageBin extends BaseEntity {
     @JsonIgnore
     private Warehouse warehouse;
 
-    @OneToMany(mappedBy = "storageBin") //One StorageBin → Many InventoryItems
-    private List<InventoryItem> inventoryItems;
+    @OneToMany(mappedBy = "storageBin", fetch = FetchType.EAGER) //One StorageBin → Many InventoryItems
+    private List<InventoryItem> inventoryItems = new ArrayList<>();
 
     public StorageBinResponseDto toResponseDto() {
         StorageBinResponseDto storageBinResponseDto = new StorageBinResponseDto();
         storageBinResponseDto.setBinId(this.getBinId());
         storageBinResponseDto.setBinCode(this.getBinCode());
-        storageBinResponseDto.setCapacity(this.getCapacity());
+        storageBinResponseDto.setTotalCapacity(this.getCapacity());
+        int occupiedCapacity = inventoryItems.stream().mapToInt(InventoryItem::getQuantity).sum();
+        int availableCapacity = this.getCapacity() - occupiedCapacity;
+        int usagePercent = 0;
+        storageBinResponseDto.setAvailableCapacity(availableCapacity);
         storageBinResponseDto.setWarehouseName(this.getWarehouse().getName());
         storageBinResponseDto.setInventoryItems(this.getInventoryItems());
         return storageBinResponseDto;
