@@ -16,7 +16,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "storage_bin")
-@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @NoArgsConstructor

@@ -34,6 +34,7 @@ public class ProductService {
         productRepository.deleteById(productId);
     }
 
+    //update product
     public Product updateProduct(Long productId, Product productDetails) {
 //        Checking the productId or  productDetailsId
         if(!Objects.equals(productId, productDetails.getProductId())){
