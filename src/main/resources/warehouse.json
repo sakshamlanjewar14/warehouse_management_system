@@ -1,0 +1,176 @@
+[
+  {
+    "name": "Main Warehouse",
+    "location": "Pune, Maharashtra",
+    "capacity": 800,
+    "storageBins": [
+      {
+        "binCode": "BIN-A1",
+        "capacity": 300
+      },
+      {
+        "binCode": "BIN-A2",
+        "capacity": 500
+      }
+    ]
+  },
+  {
+    "name": "North Hub",
+    "location": "Delhi, India",
+    "capacity": 1100,
+    "storageBins": [
+      {
+        "binCode": "BIN-B1",
+        "capacity": 400
+      },
+      {
+        "binCode": "BIN-B2",
+        "capacity": 300
+      },
+      {
+        "binCode": "BIN-B3",
+        "capacity": 400
+      }
+    ]
+  },
+  {
+    "name": "South Distribution Center",
+    "location": "Bangalore, Karnataka",
+    "capacity": 900,
+    "storageBins": [
+      {
+        "binCode": "BIN-C1",
+        "capacity": 200
+      },
+      {
+        "binCode": "BIN-C2",
+        "capacity": 300
+      },
+      {
+        "binCode": "BIN-C3",
+        "capacity": 400
+      }
+    ]
+  },
+  {
+    "name": "West Storage",
+    "location": "Mumbai, Maharashtra",
+    "capacity": 1000,
+    "storageBins": [
+      {
+        "binCode": "BIN-D1",
+        "capacity": 400
+      },
+      {
+        "binCode": "BIN-D2",
+        "capacity": 600
+      }
+    ]
+  },
+  {
+    "name": "East Logistics Hub",
+    "location": "Kolkata, West Bengal",
+    "capacity": 1200,
+    "storageBins": [
+      {
+        "binCode": "BIN-E1",
+        "capacity": 500
+      },
+      {
+        "binCode": "BIN-E2",
+        "capacity": 400
+      },
+      {
+        "binCode": "BIN-E3",
+        "capacity": 300
+      }
+    ]
+  },
+  {
+    "name": "Central Warehouse",
+    "location": "Nagpur, Maharashtra",
+    "capacity": 750,
+    "storageBins": [
+      {
+        "binCode": "BIN-F1",
+        "capacity": 250
+      },
+      {
+        "binCode": "BIN-F2",
+        "capacity": 500
+      }
+    ]
+  },
+  {
+    "name": "Industrial Storage Unit",
+    "location": "Hyderabad, Telangana",
+    "capacity": 1300,
+    "storageBins": [
+      {
+        "binCode": "BIN-G1",
+        "capacity": 600
+      },
+      {
+        "binCode": "BIN-G2",
+        "capacity": 400
+      },
+      {
+        "binCode": "BIN-G3",
+        "capacity": 300
+      }
+    ]
+  },
+  {
+    "name": "Express Fulfillment Center",
+    "location": "Chennai, Tamil Nadu",
+    "capacity": 900,
+    "storageBins": [
+      {
+        "binCode": "BIN-H1",
+        "capacity": 300
+      },
+      {
+        "binCode": "BIN-H2",
+        "capacity": 300
+      },
+      {
+        "binCode": "BIN-H3",
+        "capacity": 300
+      }
+    ]
+  },
+  {
+    "name": "Regional Depot",
+    "location": "Ahmedabad, Gujarat",
+    "capacity": 800,
+    "storageBins": [
+      {
+        "binCode": "BIN-I1",
+        "capacity": 200
+      },
+      {
+        "binCode": "BIN-I2",
+        "capacity": 300
+      },
+      {
+        "binCode": "BIN-I3",
+        "capacity": 300
+      }
+    ]
+  },
+  {
+    "name": "Backup Warehouse",
+    "location": "Jaipur, Rajasthan",
+    "capacity": 600,
+    "storageBins": [
+      {
+        "binCode": "BIN-J1",
+        "capacity": 200
+      },
+      {
+        "binCode": "BIN-J2",
+        "capacity": 400
+      }
+    ]
+  }
+]

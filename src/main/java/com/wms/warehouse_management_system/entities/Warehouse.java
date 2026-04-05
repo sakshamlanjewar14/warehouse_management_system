@@ -32,6 +32,6 @@ public class Warehouse extends BaseEntity{
     @Column
     private Integer capacity;
 
-    @OneToMany(mappedBy = "warehouse") //One Warehouse → Many StorageBins
+    @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL) //One Warehouse → Many StorageBins
     private List<StorageBin> storageBins;
 }
