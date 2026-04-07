@@ -16,6 +16,7 @@ import java.util.List;
 @Component
 public class InboundShipmentMapper {
 
+    //response for entity to dto
     public InboundShipmentResponseDto mapEntityToInboundShipmentResponseDto(InboundShipment entity){
         InboundShipmentResponseDto responseDto = new InboundShipmentResponseDto();
         responseDto.setShipmentCode(entity.getShipmentCode());
@@ -46,6 +47,7 @@ public class InboundShipmentMapper {
         return responseDto;
     }
 
+    //request for  dto to entity
     public InboundShipment mapRequestDtoToInboundShipmentEntity(InboundShipmentRequestDto requestDto){
         InboundShipment inboundShipment = new InboundShipment();
         inboundShipment.setShipmentCode(requestDto.getShipmentCode());

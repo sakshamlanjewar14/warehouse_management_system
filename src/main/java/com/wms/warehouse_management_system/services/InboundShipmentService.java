@@ -10,17 +10,19 @@ import com.wms.warehouse_management_system.entities.InboundShipment;
 import com.wms.warehouse_management_system.enums.ShipmentStatus;
 import com.wms.warehouse_management_system.mapper.InboundShipmentMapper;
 import com.wms.warehouse_management_system.repositorys.InboundShipmentRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
 
+@RequiredArgsConstructor
 @Service
 public class InboundShipmentService {
 
-    private InboundShipmentRepository  inboundShipmentRepository;
-    private InboundShipmentMapper inboundShipmentMapper;
+    private final InboundShipmentRepository  inboundShipmentRepository;
+    private final InboundShipmentMapper inboundShipmentMapper;
 
     //create the Shipment
     @Transactional
@@ -37,6 +39,7 @@ public class InboundShipmentService {
         return inboundShipments
                 .stream()
                 .map(inboundShipmentMapper::mapEntityToInboundShipmentResponseDto).toList();
+
     }
 
     //get Shipment by id

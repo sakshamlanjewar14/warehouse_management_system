@@ -12,6 +12,7 @@ import com.wms.warehouse_management_system.repositorys.StorageBinRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class InventoryService {
 
 
 //    Create inventory
+@Transactional
     public List<InventoryItemResponseDto> createInventory(InventoryItemRequestDto inventoryItemRequestDto){
         Product product = productRepository.findById(inventoryItemRequestDto.getProductId()).orElse(null);
         List<InventoryItemResponseDto> inventoryItemResponseDtos = new ArrayList<>();
@@ -56,16 +58,19 @@ public class InventoryService {
     }
 
 //    Get all inventory
+@Transactional
     public List<InventoryItemResponseDto> getAllInventory(){
         return inventoryItemRepository.findAll().stream().map(InventoryItem::toResponseDto).toList();
     }
 
 //    Get inventory by id
+@Transactional
     public InventoryItem getInventoryById(Long id){
         return inventoryItemRepository.findById(id).orElse(null);
     }
 
 //    Update quantity
+@Transactional
     public InventoryItem updateInventory(Long inventoryItemId, InventoryItem inventoryItemDetails){
         if(!Objects.equals(inventoryItemId, inventoryItemDetails )){
             return  null;
@@ -79,6 +84,7 @@ public class InventoryService {
     }
 
 //    Delete inventory by id
+@Transactional
     public void deleteInventory(Long id){
         inventoryItemRepository.deleteById(id);
     }
