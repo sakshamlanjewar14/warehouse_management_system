@@ -6,6 +6,9 @@ import java.util.List;
 
 @Data
 public class SupplierRequestDto {
+
+    private  Long supplierId;
+
     private String name;
 
     private String supplierCode;

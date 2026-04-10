@@ -68,7 +68,8 @@ public class InboundShipmentMapper {
         return inboundShipment;
     }
 
-    public InboundShipmentItem mapRequestDtoToInboundShipmentItemEntity(InboundShipmentItemRequestDto requestDto, InboundShipment inboundShipment){
+    public InboundShipmentItem mapRequestDtoToInboundShipmentItemEntity(InboundShipmentItemRequestDto requestDto,
+                                                                        InboundShipment inboundShipment){
         InboundShipmentItem inboundShipmentItem = new InboundShipmentItem();
         inboundShipmentItem.setProductId(requestDto.getProductId());
         inboundShipmentItem.setExpectedQty(requestDto.getExpectedQty());

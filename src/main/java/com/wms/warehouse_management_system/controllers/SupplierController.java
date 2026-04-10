@@ -2,8 +2,8 @@ package com.wms.warehouse_management_system.controllers;
 
 
 import com.wms.warehouse_management_system.common.ApiResponse;
+import com.wms.warehouse_management_system.dtos.SupplierRequestDto;
 import com.wms.warehouse_management_system.dtos.SupplierResponseDto;
-import com.wms.warehouse_management_system.entities.Supplier;
 import com.wms.warehouse_management_system.services.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +24,9 @@ public class SupplierController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<SupplierResponseDto>> createSupplier(@RequestBody Supplier supplier){
+    public ResponseEntity<ApiResponse<SupplierResponseDto>> createSupplier(@RequestBody SupplierRequestDto supplier){
        try{
-           Supplier savedSupplier = supplierService.createSupplier(supplier);
+           SupplierResponseDto savedSupplier = supplierService.createSupplier(supplier);
            return ResponseEntity.ok(ApiResponse.success(savedSupplier));
        } catch (Exception e) {
 
@@ -37,8 +37,8 @@ public class SupplierController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Supplier>>> getAllSupplier(){
-        List<Supplier> suppliers = supplierService.getAllSupplier();
+    public ResponseEntity<ApiResponse<List<SupplierResponseDto>>> getAllSupplier(){
+        List<SupplierResponseDto> suppliers = supplierService.getAllSupplier();
         if (suppliers.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ApiResponse.error("Supplier Not Found"));
@@ -47,13 +47,13 @@ public class SupplierController {
     }
 
     @GetMapping("/{supplierId}")
-    public ResponseEntity<ApiResponse<Supplier>> getSupplierById(@PathVariable("supplierId") Long supplierId){
-        Supplier supplier = supplierService.getSupplierById(supplierId);
+    public ResponseEntity<ApiResponse<SupplierResponseDto>> getSupplierById(@PathVariable("supplierId") Long supplierId){
+        SupplierResponseDto supplier = supplierService.getSupplierById(supplierId);
         if (supplier == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ApiResponse.error("Supplier Not Found For Id :"+ supplierId));
         }
-        return ResponseEntity.ok(ApiResponse.success(supplierId));
+        return ResponseEntity.ok(ApiResponse.success(supplier));
     }
 
     @DeleteMapping("/{supplierId}")
@@ -68,9 +68,9 @@ public class SupplierController {
     }
 
     @PutMapping("/{supplierId}")
-    public ResponseEntity<ApiResponse<Supplier>> updateSupplier(@PathVariable("supplierId") Long supplierId, @RequestBody Supplier supplier){
+    public ResponseEntity<ApiResponse<SupplierResponseDto>> updateSupplier(@PathVariable("supplierId") Long supplierId, @RequestBody SupplierRequestDto supplier){
         try {
-            Supplier updateSupplier = supplierService.updateSupplier(supplierId, supplier);
+            SupplierResponseDto updateSupplier = supplierService.updateSupplier(supplierId, supplier);
             if (updateSupplier ==null){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(ApiResponse.error("Supplier not Found"));

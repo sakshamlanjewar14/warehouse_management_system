@@ -31,4 +31,8 @@ public class SupplierItem extends BaseEntity {
     @Column(nullable = false)
     private Long productId;
 
+    @ManyToOne
+    @JoinColumn(name= "supplier_id")
+    private Supplier supplier;
+
 }

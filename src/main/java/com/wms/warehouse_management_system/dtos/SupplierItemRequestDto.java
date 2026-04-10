@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 public class SupplierItemRequestDto {
 
+    private Long itemId;
+
     private String productName;
 
     private Double price;

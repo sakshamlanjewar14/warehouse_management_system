@@ -51,7 +51,7 @@ public class Supplier extends BaseEntity{
     @Column(nullable = false)
     private String postalCode;
 
-    @OneToMany
+    @OneToMany(mappedBy = "supplier")
     private List<SupplierItem> supplierItems = new ArrayList<>();
 
 }
