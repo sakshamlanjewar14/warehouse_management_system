@@ -28,7 +28,7 @@ public class InboundShipment extends BaseEntity{
     private String shipmentCode;
 
     @Column(nullable = false)
-    private  String supplierName;
+    private  Long supplierId;
 
     @Enumerated(EnumType.STRING)
     private ShipmentStatus status;

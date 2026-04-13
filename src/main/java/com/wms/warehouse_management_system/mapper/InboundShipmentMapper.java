@@ -20,7 +20,7 @@ public class InboundShipmentMapper {
     public InboundShipmentResponseDto mapEntityToInboundShipmentResponseDto(InboundShipment entity){
         InboundShipmentResponseDto responseDto = new InboundShipmentResponseDto();
         responseDto.setShipmentCode(entity.getShipmentCode());
-        responseDto.setSupplierName(entity.getSupplierName());
+        responseDto.setSupplierId(entity.getSupplierId());
         responseDto.setStatus(entity.getStatus().toString());
         responseDto.setReceivedDate(entity.getReceivedDate());
         responseDto.setReferenceNumber(entity.getReferenceNumber());
@@ -51,7 +51,7 @@ public class InboundShipmentMapper {
     public InboundShipment mapRequestDtoToInboundShipmentEntity(InboundShipmentRequestDto requestDto){
         InboundShipment inboundShipment = new InboundShipment();
         inboundShipment.setShipmentCode(requestDto.getShipmentCode());
-        inboundShipment.setSupplierName(requestDto.getSupplierName());
+        inboundShipment.setSupplierId(requestDto.getSupplierId());
         inboundShipment.setStatus(ShipmentStatus.valueOf(requestDto.getStatus()));
         inboundShipment.setReceivedDate(requestDto.getReceivedDate());
         inboundShipment.setReferenceNumber(requestDto.getReferenceNumber());

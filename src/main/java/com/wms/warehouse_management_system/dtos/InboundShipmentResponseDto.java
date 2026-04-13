@@ -15,7 +15,7 @@ public class InboundShipmentResponseDto {
 
     private String shipmentCode;
 
-    private  String supplierName;
+    private  Long supplierId;
 
     private String status;
 

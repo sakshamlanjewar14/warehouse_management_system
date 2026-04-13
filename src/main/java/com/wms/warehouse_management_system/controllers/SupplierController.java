@@ -2,6 +2,7 @@ package com.wms.warehouse_management_system.controllers;
 
 
 import com.wms.warehouse_management_system.common.ApiResponse;
+import com.wms.warehouse_management_system.dtos.SupplierItemRequestDto;
 import com.wms.warehouse_management_system.dtos.SupplierRequestDto;
 import com.wms.warehouse_management_system.dtos.SupplierResponseDto;
 import com.wms.warehouse_management_system.services.SupplierService;
@@ -33,7 +34,25 @@ public class SupplierController {
            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                    .body(ApiResponse.error(e.getMessage()));
        }
+    }
 
+    @PostMapping("/assign-products/{supplierId}")
+    public ResponseEntity<ApiResponse<SupplierResponseDto>> assignProductsToSupplier(
+            @PathVariable("supplierId") Long supplierId,
+            @RequestBody List<SupplierItemRequestDto> supplierItemRequestDtoList){
+        try{
+            System.out.println("supplierId::"+supplierId);
+            SupplierResponseDto savedSupplier = supplierService.assignProductsToSupplier(supplierId, supplierItemRequestDtoList);
+            if(savedSupplier == null){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(ApiResponse.error("Supplier Not Found"));
+            }
+            return ResponseEntity.ok(ApiResponse.success(savedSupplier));
+        } catch (Exception e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ApiResponse.error(e.getMessage()));
+        }
     }
 
     @GetMapping

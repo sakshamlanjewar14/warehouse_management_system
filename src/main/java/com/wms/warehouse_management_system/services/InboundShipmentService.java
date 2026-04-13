@@ -7,6 +7,7 @@ import com.wms.warehouse_management_system.dtos.InboundShipmentItemResponseDto;
 import com.wms.warehouse_management_system.dtos.InboundShipmentRequestDto;
 import com.wms.warehouse_management_system.dtos.InboundShipmentResponseDto;
 import com.wms.warehouse_management_system.entities.InboundShipment;
+import com.wms.warehouse_management_system.enums.ShipmentItemStatus;
 import com.wms.warehouse_management_system.enums.ShipmentStatus;
 import com.wms.warehouse_management_system.mapper.InboundShipmentMapper;
 import com.wms.warehouse_management_system.repositorys.InboundShipmentRepository;
@@ -27,9 +28,19 @@ public class InboundShipmentService {
     //create the Shipment
     @Transactional
     public InboundShipmentResponseDto createShipment(InboundShipmentRequestDto requestDto){
-        InboundShipment inboundShipment = inboundShipmentMapper.mapRequestDtoToInboundShipmentEntity(requestDto);
-        InboundShipment savedInboundShipment = inboundShipmentRepository.save(inboundShipment);
-        return inboundShipmentMapper.mapEntityToInboundShipmentResponseDto(savedInboundShipment);
+        try{
+            requestDto.setStatus(ShipmentStatus.CREATED.toString());
+            requestDto.getInboundShipmentItems().forEach(inboundItemDto ->{
+                inboundItemDto.setStatus(ShipmentItemStatus.PENDING.toString());
+            });
+
+            InboundShipment inboundShipment = inboundShipmentMapper.mapRequestDtoToInboundShipmentEntity(requestDto);
+            InboundShipment savedInboundShipment = inboundShipmentRepository.save(inboundShipment);
+            return inboundShipmentMapper.mapEntityToInboundShipmentResponseDto(savedInboundShipment);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     //get all Shipment
@@ -68,7 +79,7 @@ public class InboundShipmentService {
 
         if (shipment  != null){
             shipment.setShipmentCode(requestDto.getShipmentCode());
-            shipment.setSupplierName(requestDto.getSupplierName());
+            shipment.setSupplierId(requestDto.getSupplierId());
             shipment.setExpectedDate(requestDto.getExpectedDate());
             shipment.setStatus(ShipmentStatus.valueOf(requestDto.getStatus()));
             shipment.setReferenceNumber(requestDto.getReferenceNumber());

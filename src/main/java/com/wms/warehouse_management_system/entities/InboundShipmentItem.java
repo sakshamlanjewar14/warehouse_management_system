@@ -24,10 +24,10 @@ public class InboundShipmentItem extends BaseEntity {
     @Column(nullable = false)
     public Long productId;
 
-    @Column(nullable = false)
+    @Column
     public Integer expectedQty;
 
-    @Column(nullable = false)
+    @Column
     public Integer receivedQty;
 
     @Column

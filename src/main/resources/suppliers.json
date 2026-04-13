@@ -1,0 +1,62 @@
+[
+  {
+    "name": "ABC Suppliers",
+    "supplierCode": "SUP-001",
+    "email": "abc@supplier.com",
+    "phone": "9876543210",
+    "address1": "Street 1",
+    "address2": "Area A",
+    "city": "Pune",
+    "state": "Maharashtra",
+    "country": "India",
+    "postalCode": "411033"
+  },
+  {
+    "name": "Global Traders",
+    "supplierCode": "SUP-002",
+    "email": "global@supplier.com",
+    "phone": "9123456780",
+    "address1": "Street 2",
+    "address2": "Area B",
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "country": "India",
+    "postalCode": "400001"
+  },
+  {
+    "name": "Prime Distributors",
+    "supplierCode": "SUP-003",
+    "email": "prime@supplier.com",
+    "phone": "9988776655",
+    "address1": "Street 3",
+    "address2": "Area C",
+    "city": "Nagpur",
+    "state": "Maharashtra",
+    "country": "India",
+    "postalCode": "440001"
+  },
+  {
+    "name": "National Supply Co",
+    "supplierCode": "SUP-004",
+    "email": "national@supplier.com",
+    "phone": "9090909090",
+    "address1": "Street 4",
+    "address2": "Area D",
+    "city": "Delhi",
+    "state": "Delhi",
+    "country": "India",
+    "postalCode": "110001"
+  },
+  {
+    "name": "Elite Wholesale",
+    "supplierCode": "SUP-005",
+    "email": "elite@supplier.com",
+    "phone": "8888888888",
+    "address1": "Street 5",
+    "address2": "Area E",
+    "city": "Bangalore",
+    "state": "Karnataka",
+    "country": "India",
+    "postalCode": "560001"
+  }
+]

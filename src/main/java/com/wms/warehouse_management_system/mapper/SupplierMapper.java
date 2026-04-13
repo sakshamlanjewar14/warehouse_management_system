@@ -17,6 +17,7 @@ public class SupplierMapper {
     //response for entity to dto
     public SupplierResponseDto mapEntityToSupplierResponseDto(Supplier entity){
         SupplierResponseDto responseDto = new SupplierResponseDto();
+        responseDto.setSupplierId(entity.getSupplierId());
         responseDto.setName(entity.getName());
         responseDto.setEmail(entity.getEmail());
         responseDto.setPhone(entity.getPhone());
@@ -38,6 +39,7 @@ public class SupplierMapper {
 
     public SupplierItemResponseDto mapEntityToSupplierItemResponseDto(SupplierItem entity){
         SupplierItemResponseDto responseDto = new SupplierItemResponseDto();
+        responseDto.setItemId(entity.getItemId());
         responseDto.setPrice(entity.getPrice());
         responseDto.setQuantity(entity.getQuantity());
         responseDto.setProductName(entity.getProductName());
@@ -49,6 +51,7 @@ public class SupplierMapper {
     //request for  dto to entity
     public Supplier mapRequestDtoToSupplierEntity(SupplierRequestDto requestDto){
         Supplier supplier = new Supplier();
+        supplier.setSupplierId(requestDto.getSupplierId());
         supplier.setName(requestDto.getName());
         supplier.setSupplierCode(requestDto.getSupplierCode());
         supplier.setEmail(requestDto.getEmail());
@@ -73,6 +76,7 @@ public class SupplierMapper {
 
     public SupplierItem mapRequestDtoToSupplierItemEntity(SupplierItemRequestDto requestDto, Supplier supplier){
         SupplierItem supplierItem = new SupplierItem();
+        //supplierItem.setItemId(requestDto.getItemId());
         supplierItem.setProductName(requestDto.getProductName());
         supplierItem.setPrice(requestDto.getPrice());
         supplierItem.setQuantity(requestDto.getQuantity());

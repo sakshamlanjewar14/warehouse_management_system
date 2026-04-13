@@ -7,6 +7,7 @@ import com.wms.warehouse_management_system.dtos.SupplierResponseDto;
 import com.wms.warehouse_management_system.entities.Supplier;
 import com.wms.warehouse_management_system.entities.SupplierItem;
 import com.wms.warehouse_management_system.mapper.SupplierMapper;
+import com.wms.warehouse_management_system.repositorys.SupplierItemRepository;
 import com.wms.warehouse_management_system.repositorys.SupplierRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +24,7 @@ public class SupplierService {
 
     @Autowired
     private final SupplierRepository supplierRepository;
+    private final SupplierItemRepository supplierItemRepository;
     private final SupplierMapper supplierMapper;
 
 
@@ -76,6 +79,30 @@ public class SupplierService {
             return supplierMapper.mapEntityToSupplierResponseDto(updatedSupplier);
         }
         return null;
+    }
+
+    @Transactional
+    public SupplierResponseDto assignProductsToSupplier(
+            Long supplierId,
+            List<SupplierItemRequestDto> supplierItemRequestDtoList) {
+        System.out.println(supplierId + " "+ supplierItemRequestDtoList.size());
+        //get supplier from supplierId
+        Supplier supplier = supplierRepository.findById(supplierId).orElse(null);
+        if (supplier == null) {
+            return null;
+        }
+        List<SupplierItem> supplierItemsToDelete = supplier.getSupplierItems();
+        supplierItemRepository.deleteAll(supplierItemsToDelete);
+        //convert supplierItemRequestDtoList to supplierItems entities
+        List<SupplierItem> supplierItems = supplierItemRequestDtoList.stream()
+                .map(i -> supplierMapper.mapRequestDtoToSupplierItemEntity(i, supplier))
+                .collect(Collectors.toList());
+        supplierItemRepository.saveAll(supplierItems);
+
+
+        Supplier updatedSupplier = supplierRepository.findById(supplierId).orElse(null);
+
+        return updatedSupplier != null ? supplierMapper.mapEntityToSupplierResponseDto(updatedSupplier) : null;
     }
 
 //    public List<SupplierItemResponseDto> updateSupplierItem(List<SupplierItemRequestDto> supplierItemRequestDtos,
