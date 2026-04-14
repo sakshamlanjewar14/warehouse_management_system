@@ -51,15 +51,26 @@ public class InboundShipmentController {
             @PathVariable("shipmentId") Long shipmentId,
             @PathVariable("supplierId") Long supplierId){
         Map<String, Object> responseMap = new HashMap<>();
+
+//        For the inboundshipment
         InboundShipmentResponseDto inboundShipmentResponseDto = inboundShipmentService.getShipmentById(shipmentId);
-        SupplierResponseDto supplierResponseDto = supplierService.getSupplierById(supplierId);
-        responseMap.put("inboundShipmentResponseDto", inboundShipmentResponseDto);
-        responseMap.put("supplierResponseDto", supplierResponseDto);
         if (inboundShipmentResponseDto == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ApiResponse.error("Inbound Shipment Not Found For Id :"+shipmentId));
         }
+
+//        For the supplier
+        SupplierResponseDto supplierResponseDto = supplierService.getSupplierById(supplierId);
+        if (supplierResponseDto == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ApiResponse.error("Supplier  Not Found For Id :"+supplierId));
+        }
+
+        responseMap.put("inboundShipmentResponseDto", inboundShipmentResponseDto);
+        responseMap.put("supplierResponseDto", supplierResponseDto);
+
         return ResponseEntity.ok(ApiResponse.success(responseMap));
+
     }
 
     @DeleteMapping("/{shipmentId}")
