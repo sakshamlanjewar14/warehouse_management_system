@@ -7,8 +7,8 @@ import com.wms.warehouse_management_system.dtos.InboundShipmentItemResponseDto;
 import com.wms.warehouse_management_system.dtos.InboundShipmentRequestDto;
 import com.wms.warehouse_management_system.dtos.InboundShipmentResponseDto;
 import com.wms.warehouse_management_system.entities.InboundShipment;
-import com.wms.warehouse_management_system.enums.ShipmentItemStatus;
-import com.wms.warehouse_management_system.enums.ShipmentStatus;
+import com.wms.warehouse_management_system.enums.InboundShipmentItemStatus;
+import com.wms.warehouse_management_system.enums.InboundShipmentStatus;
 import com.wms.warehouse_management_system.mapper.InboundShipmentMapper;
 import com.wms.warehouse_management_system.repositorys.InboundShipmentRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,9 +29,9 @@ public class InboundShipmentService {
     @Transactional
     public InboundShipmentResponseDto createShipment(InboundShipmentRequestDto requestDto){
         try{
-            requestDto.setStatus(ShipmentStatus.CREATED.toString());
+            requestDto.setStatus(InboundShipmentStatus.CREATED.toString());
             requestDto.getInboundShipmentItems().forEach(inboundItemDto ->{
-                inboundItemDto.setStatus(ShipmentItemStatus.PENDING.toString());
+                inboundItemDto.setStatus(InboundShipmentItemStatus.PENDING.toString());
             });
 
             InboundShipment inboundShipment = inboundShipmentMapper.mapRequestDtoToInboundShipmentEntity(requestDto);
@@ -81,7 +81,7 @@ public class InboundShipmentService {
             shipment.setShipmentCode(requestDto.getShipmentCode());
             shipment.setSupplierId(requestDto.getSupplierId());
             shipment.setExpectedDate(requestDto.getExpectedDate());
-            shipment.setStatus(ShipmentStatus.valueOf(requestDto.getStatus()));
+            shipment.setStatus(InboundShipmentStatus.valueOf(requestDto.getStatus()));
             shipment.setReferenceNumber(requestDto.getReferenceNumber());
             shipment.setNotes(requestDto.getNotes());
             InboundShipment updatedInboundShipment = inboundShipmentRepository.save(shipment);

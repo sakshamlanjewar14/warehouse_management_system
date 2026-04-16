@@ -1,8 +1,6 @@
 package com.wms.warehouse_management_system.entities;
 
-import com.wms.warehouse_management_system.dtos.InboundShipmentItemResponseDto;
-import com.wms.warehouse_management_system.dtos.InboundShipmentResponseDto;
-import com.wms.warehouse_management_system.enums.ShipmentStatus;
+import com.wms.warehouse_management_system.enums.InboundShipmentStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,7 +29,7 @@ public class InboundShipment extends BaseEntity{
     private  Long supplierId;
 
     @Enumerated(EnumType.STRING)
-    private ShipmentStatus status;
+    private InboundShipmentStatus status;
 
     @Column
     private LocalDateTime expectedDate;

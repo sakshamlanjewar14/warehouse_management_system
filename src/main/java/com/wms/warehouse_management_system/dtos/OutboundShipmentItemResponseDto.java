@@ -1,0 +1,19 @@
+package com.wms.warehouse_management_system.dtos;
+
+import com.wms.warehouse_management_system.entities.OutboundShipment;
+import com.wms.warehouse_management_system.entities.Product;
+import lombok.Data;
+
+@Data
+public class OutboundShipmentItemResponseDto {
+    private Long shipmentItemId;
+
+    private Integer quantity;
+
+   private Long shipmentId;
+
+  private Long productId;
+
+  private String productName;
+}
+

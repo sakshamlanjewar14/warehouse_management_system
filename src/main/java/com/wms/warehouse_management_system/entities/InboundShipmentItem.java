@@ -1,8 +1,7 @@
 package com.wms.warehouse_management_system.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.wms.warehouse_management_system.dtos.InboundShipmentItemResponseDto;
-import com.wms.warehouse_management_system.enums.ShipmentItemStatus;
+import com.wms.warehouse_management_system.enums.InboundShipmentItemStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +33,7 @@ public class InboundShipmentItem extends BaseEntity {
     public Integer damagedQty;
 
     @Enumerated(EnumType.STRING)
-    private ShipmentItemStatus status;
+    private InboundShipmentItemStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shipment_id", nullable = false)

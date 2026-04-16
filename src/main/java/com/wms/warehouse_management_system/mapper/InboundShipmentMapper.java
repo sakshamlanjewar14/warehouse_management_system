@@ -6,8 +6,8 @@ import com.wms.warehouse_management_system.dtos.InboundShipmentRequestDto;
 import com.wms.warehouse_management_system.dtos.InboundShipmentResponseDto;
 import com.wms.warehouse_management_system.entities.InboundShipment;
 import com.wms.warehouse_management_system.entities.InboundShipmentItem;
-import com.wms.warehouse_management_system.enums.ShipmentItemStatus;
-import com.wms.warehouse_management_system.enums.ShipmentStatus;
+import com.wms.warehouse_management_system.enums.InboundShipmentItemStatus;
+import com.wms.warehouse_management_system.enums.InboundShipmentStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class InboundShipmentMapper {
         InboundShipment inboundShipment = new InboundShipment();
         inboundShipment.setShipmentCode(requestDto.getShipmentCode());
         inboundShipment.setSupplierId(requestDto.getSupplierId());
-        inboundShipment.setStatus(ShipmentStatus.valueOf(requestDto.getStatus()));
+        inboundShipment.setStatus(InboundShipmentStatus.valueOf(requestDto.getStatus()));
         inboundShipment.setReceivedDate(requestDto.getReceivedDate());
         inboundShipment.setReferenceNumber(requestDto.getReferenceNumber());
         inboundShipment.setNotes(requestDto.getNotes());
@@ -75,7 +75,7 @@ public class InboundShipmentMapper {
         inboundShipmentItem.setExpectedQty(requestDto.getExpectedQty());
         inboundShipmentItem.setReceivedQty(requestDto.getReceivedQty());
         inboundShipmentItem.setDamagedQty(requestDto.getDamagedQty());
-        inboundShipmentItem.setStatus(ShipmentItemStatus.valueOf(requestDto.getStatus()));
+        inboundShipmentItem.setStatus(InboundShipmentItemStatus.valueOf(requestDto.getStatus()));
         // relationship mapping
         inboundShipmentItem.setInboundShipment(inboundShipment);
         return inboundShipmentItem;

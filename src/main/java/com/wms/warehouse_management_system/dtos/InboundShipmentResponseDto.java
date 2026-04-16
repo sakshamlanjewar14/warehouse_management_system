@@ -1,7 +1,5 @@
 package com.wms.warehouse_management_system.dtos;
 
-import com.wms.warehouse_management_system.entities.InboundShipmentItem;
-import com.wms.warehouse_management_system.enums.ShipmentItemStatus;
 import lombok.Data;
 
 import java.time.LocalDateTime;

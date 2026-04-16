@@ -1,6 +1,6 @@
 package com.wms.warehouse_management_system.enums;
 
-public enum ShipmentStatus {
+public enum InboundShipmentStatus {
     CREATED,
     PENDING,
     IN_TRANSIT,

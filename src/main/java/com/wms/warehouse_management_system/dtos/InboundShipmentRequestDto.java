@@ -1,11 +1,5 @@
 package com.wms.warehouse_management_system.dtos;
 
-import com.wms.warehouse_management_system.entities.InboundShipment;
-import com.wms.warehouse_management_system.entities.InboundShipmentItem;
-import com.wms.warehouse_management_system.enums.ShipmentStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.Data;
 
 import java.time.LocalDateTime;
