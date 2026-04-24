@@ -9,6 +9,7 @@ import com.wms.warehouse_management_system.entities.InboundShipmentItem;
 import com.wms.warehouse_management_system.services.InboundShipmentService;
 import com.wms.warehouse_management_system.services.SupplierService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/inbound_shipment")
 public class InboundShipmentController {
+    @Autowired
     private final InboundShipmentService inboundShipmentService;
     private final SupplierService supplierService;
 

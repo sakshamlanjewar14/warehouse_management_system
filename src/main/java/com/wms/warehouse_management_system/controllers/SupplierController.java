@@ -87,7 +87,8 @@ public class SupplierController {
     }
 
     @PutMapping("/{supplierId}")
-    public ResponseEntity<ApiResponse<SupplierResponseDto>> updateSupplier(@PathVariable("supplierId") Long supplierId, @RequestBody SupplierRequestDto supplier){
+    public ResponseEntity<ApiResponse<SupplierResponseDto>> updateSupplier(@PathVariable("supplierId") Long supplierId,
+                                                                           @RequestBody SupplierRequestDto supplier){
         try {
             SupplierResponseDto updateSupplier = supplierService.updateSupplier(supplierId, supplier);
             if (updateSupplier ==null){

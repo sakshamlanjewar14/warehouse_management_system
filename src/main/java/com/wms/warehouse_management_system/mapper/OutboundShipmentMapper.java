@@ -7,10 +7,12 @@ import com.wms.warehouse_management_system.dtos.OutboundShipmentResponseDto;
 import com.wms.warehouse_management_system.entities.OutboundShipment;
 import com.wms.warehouse_management_system.entities.OutboundShipmentItem;
 import com.wms.warehouse_management_system.entities.Product;
+import com.wms.warehouse_management_system.enums.OutboundShipmentStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class OutboundShipmentMapper {
@@ -19,6 +21,7 @@ public class OutboundShipmentMapper {
     public OutboundShipmentResponseDto mapEntityToOutboundShipmentResponseDto(OutboundShipment entity){
         OutboundShipmentResponseDto responseDto = new OutboundShipmentResponseDto();
         responseDto.setShipmentNumber(entity.getShipmentNumber());
+        responseDto.setCustomerName(entity.getCustomerName());
         responseDto.setStatus(entity.getStatus());
         responseDto.setShipmentAddress(entity.getShipmentAddress());
         responseDto.setTrackingNumber(entity.getTrackingNumber());
@@ -42,24 +45,28 @@ public class OutboundShipmentMapper {
     }
 
     //request for  dto to entity
-    public OutboundShipment mapRequestDtoToOutboundShipmentEntity(OutboundShipmentRequestDto requestDto){
+    public OutboundShipment mapRequestDtoToOutboundShipmentEntity(OutboundShipmentRequestDto requestDto, List<Product> products){
         OutboundShipment outboundShipment = new OutboundShipment();
         outboundShipment.setShipmentNumber(requestDto.getShipmentNumber());
-        outboundShipment.setStatus(requestDto.getStatus());
+        outboundShipment.setCustomerName(requestDto.getCustomerName());
+        outboundShipment.setStatus(OutboundShipmentStatus.valueOf(String.valueOf(requestDto.getStatus())));
         outboundShipment.setShipmentAddress(requestDto.getShipmentAddress());
         outboundShipment.setTrackingNumber(requestDto.getTrackingNumber());
         List<OutboundShipmentItem> outboundShipmentItemList =  new ArrayList<>();
         if (requestDto.getOutboundShipmentItems() != null){
             outboundShipmentItemList = requestDto.getOutboundShipmentItems()
-                    .stream().map(itm->this.mapRequestDtoToOutboundShipmentEntity(itm, outboundShipment))
+                    .stream().map((itm) ->{
+                        Product product = products.stream().filter(p-> Objects.equals(p.getProductId(), itm.getProductId())).findFirst().orElse(null);
+                        return this.mapRequestDtoToOutboundShipmentItemEntity(itm, outboundShipment, product);
+                    })
                     .toList();
         }
         outboundShipment.setOutboundShipmentItems(outboundShipmentItemList);
         return outboundShipment;
     }
 
-    public OutboundShipmentItem mapRequestDtoToOutboundShipmentEntity(OutboundShipmentItemRequestDto requestDto,
-                                                                      OutboundShipment outboundShipment, Product product){
+    public OutboundShipmentItem mapRequestDtoToOutboundShipmentItemEntity(OutboundShipmentItemRequestDto requestDto,
+                                                                          OutboundShipment outboundShipment, Product product){
         OutboundShipmentItem outboundShipmentItem = new OutboundShipmentItem();
         outboundShipmentItem.setQuantity(requestDto.getQuantity());
         outboundShipmentItem.setShipmentItemId(requestDto.getShipmentItemId());

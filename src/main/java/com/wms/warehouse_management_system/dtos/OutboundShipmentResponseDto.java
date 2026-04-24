@@ -1,6 +1,7 @@
 package com.wms.warehouse_management_system.dtos;
 
 import com.wms.warehouse_management_system.enums.InboundShipmentStatus;
+import com.wms.warehouse_management_system.enums.OutboundShipmentStatus;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -12,7 +13,9 @@ public class OutboundShipmentResponseDto {
 
     private String shipmentNumber;
 
-    private InboundShipmentStatus status;
+    private String customerName;
+
+    private OutboundShipmentStatus status;
 
     private String shipmentAddress;
 

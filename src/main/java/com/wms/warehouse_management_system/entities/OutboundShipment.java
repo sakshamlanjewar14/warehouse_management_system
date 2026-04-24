@@ -1,6 +1,6 @@
 package com.wms.warehouse_management_system.entities;
 
-import com.wms.warehouse_management_system.enums.InboundShipmentStatus;
+import com.wms.warehouse_management_system.enums.OutboundShipmentStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,11 +23,16 @@ public class OutboundShipment extends  BaseEntity {
     @Column(unique = true, nullable = false)
     private String shipmentNumber;
 
-    @Enumerated(EnumType.STRING)
-    private InboundShipmentStatus status;
+    @Column(nullable = false)
+    private String customerName;
 
+    @Enumerated(EnumType.STRING)
+    private OutboundShipmentStatus status;
+
+    @Column(nullable = false)
     private String shipmentAddress;
 
+    @Column(nullable = false)
     private  String trackingNumber;
 
     // 🔗 One shipment has many items

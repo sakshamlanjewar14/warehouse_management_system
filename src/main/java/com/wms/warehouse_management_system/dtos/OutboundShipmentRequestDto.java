@@ -1,6 +1,6 @@
 package com.wms.warehouse_management_system.dtos;
 
-import com.wms.warehouse_management_system.enums.InboundShipmentStatus;
+import com.wms.warehouse_management_system.enums.OutboundShipmentStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,7 +13,9 @@ public class OutboundShipmentRequestDto {
 
     private String shipmentNumber;
 
-    private InboundShipmentStatus status;
+    private String customerName;
+
+    private OutboundShipmentStatus status;
 
     private String shipmentAddress;
 

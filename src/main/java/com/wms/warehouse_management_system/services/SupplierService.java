@@ -104,13 +104,4 @@ public class SupplierService {
 
         return updatedSupplier != null ? supplierMapper.mapEntityToSupplierResponseDto(updatedSupplier) : null;
     }
-
-//    public List<SupplierItemResponseDto> updateSupplierItem(List<SupplierItemRequestDto> supplierItemRequestDtos,
-//                                                            Long supplierId){
-//        Supplier supplier = supplierRepository.findById(supplierId).orElse(null);
-//        if (supplier != null){
-//
-//        }
-//        return null;
-//    }
 }
