@@ -19,6 +19,7 @@ public class OutboundShipmentItem extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long shipmentItemId;
 
+    @Column(nullable = false)
     private Integer quantity;
 
 //  Many items belong to one shipment
