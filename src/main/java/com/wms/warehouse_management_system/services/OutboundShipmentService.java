@@ -11,15 +11,13 @@ import com.wms.warehouse_management_system.repositorys.OutboundShipmentItemRepos
 import com.wms.warehouse_management_system.repositorys.OutboundShipmentRepository;
 import com.wms.warehouse_management_system.repositorys.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.LongStream;
+
+
 
 @RequiredArgsConstructor
 @Service

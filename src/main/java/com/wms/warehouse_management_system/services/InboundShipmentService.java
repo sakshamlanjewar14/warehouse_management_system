@@ -23,7 +23,7 @@ import java.util.Objects;
 @Service
 public class InboundShipmentService {
 
-    @Autowired
+
     private final InboundShipmentRepository  inboundShipmentRepository;
     private final InboundShipmentMapper inboundShipmentMapper;
 

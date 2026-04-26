@@ -22,11 +22,11 @@ public class StockTransfer extends  BaseEntity{
     private Long id;
 
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(name = "source_warehouse_id", nullable = false)
     private Warehouse sourceWarehouse;
 
     @ManyToOne
-    @Column(nullable = false)
+    @JoinColumn(name = "destination_warehouse_id", nullable = false)
     private Warehouse destinationWarehouse;
 
     @Enumerated(EnumType.STRING)

@@ -1,9 +1,17 @@
 package com.wms.warehouse_management_system.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "stock_trasfer_items")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class StockTransferItem extends BaseEntity{
 
     @Id
@@ -11,7 +19,7 @@ public class StockTransferItem extends BaseEntity{
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "stockTransfer_id")
     private StockTransfer stockTransfer;
 
     @ManyToOne

@@ -17,7 +17,6 @@ import java.util.List;
 @RequestMapping("/api/v1/outbound_shipment")
 public class OutboundShipmentController {
 
-    @Autowired
     private final OutboundShipmentService outboundShipmentService;
 
     @PostMapping
