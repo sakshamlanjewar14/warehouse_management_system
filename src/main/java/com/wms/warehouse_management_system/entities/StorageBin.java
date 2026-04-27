@@ -40,17 +40,4 @@ public class StorageBin extends BaseEntity {
     @OneToMany(mappedBy = "storageBin", fetch = FetchType.EAGER) //One StorageBin → Many InventoryItems
     private List<InventoryItem> inventoryItems = new ArrayList<>();
 
-    public StorageBinResponseDto toResponseDto() {
-        StorageBinResponseDto storageBinResponseDto = new StorageBinResponseDto();
-        storageBinResponseDto.setBinId(this.getBinId());
-        storageBinResponseDto.setBinCode(this.getBinCode());
-        storageBinResponseDto.setTotalCapacity(this.getCapacity());
-        int occupiedCapacity = inventoryItems.stream().mapToInt(InventoryItem::getQuantity).sum();
-        int availableCapacity = this.getCapacity() - occupiedCapacity;
-        int usagePercent = 0;
-        storageBinResponseDto.setAvailableCapacity(availableCapacity);
-        storageBinResponseDto.setWarehouseName(this.getWarehouse().getName());
-        storageBinResponseDto.setInventoryItems(this.getInventoryItems());
-        return storageBinResponseDto;
-    }
 }

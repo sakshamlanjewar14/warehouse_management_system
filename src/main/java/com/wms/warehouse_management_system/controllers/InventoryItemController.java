@@ -23,9 +23,9 @@ public class InventoryItemController {
 
     @PostMapping
     public ResponseEntity<ApiResponse<List<InventoryItemResponseDto>>> createInventoryItem(
-            @RequestBody InventoryItemRequestDto inventoryItemRequestDto){
+            @RequestBody List<InventoryItemRequestDto> inventoryItemRequestDtos){
         try{
-            List<InventoryItemResponseDto> inventoryItemResponseDtos = inventoryService.createInventory(inventoryItemRequestDto);
+            List<InventoryItemResponseDto> inventoryItemResponseDtos = inventoryService.createInventory(inventoryItemRequestDtos);
             return ResponseEntity.ok(ApiResponse.success(inventoryItemResponseDtos));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -44,8 +44,8 @@ public class InventoryItemController {
     }
     
     @GetMapping("/{inventoryItemId}")
-    public ResponseEntity<ApiResponse<InventoryItem>> getInventoryItemById(@PathVariable("inventoryItemId") Long inventoryItemId){
-        InventoryItem inventoryById = inventoryService.getInventoryById(inventoryItemId);
+    public ResponseEntity<ApiResponse<InventoryItemResponseDto>> getInventoryItemById(@PathVariable("inventoryItemId") Long inventoryItemId){
+        InventoryItemResponseDto inventoryById = inventoryService.getInventoryById(inventoryItemId);
         if(inventoryById == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ApiResponse.error("Product not find for id :"+inventoryItemId));
@@ -54,9 +54,9 @@ public class InventoryItemController {
     }
 
     @PutMapping("/{inventoryItemId}")
-    public ResponseEntity<ApiResponse<InventoryItem>> updateInventoryItem(@PathVariable() Long inventoryItemId, @RequestBody InventoryItem inventoryItem){
+    public ResponseEntity<ApiResponse<InventoryItemResponseDto>> updateInventoryItem(@PathVariable() Long inventoryItemId, @RequestBody InventoryItem inventoryItem){
         try{
-            InventoryItem updatedInventoryItem = inventoryService.updateInventory(inventoryItemId, inventoryItem);
+            InventoryItemResponseDto updatedInventoryItem = inventoryService.updateInventory(inventoryItemId, inventoryItem);
             if (updatedInventoryItem == null){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.error("Inventoryitem Not Found"));
             }

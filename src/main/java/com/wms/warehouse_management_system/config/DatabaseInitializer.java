@@ -2,14 +2,14 @@ package com.wms.warehouse_management_system.config;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wms.warehouse_management_system.dtos.InventoryItemQuantityRequestDto;
 import com.wms.warehouse_management_system.dtos.InventoryItemRequestDto;
+import com.wms.warehouse_management_system.dtos.InventoryItemResponseDto;
 import com.wms.warehouse_management_system.dtos.StorageBinResponseDto;
 import com.wms.warehouse_management_system.dtos.SupplierRequestDto;
+import com.wms.warehouse_management_system.entities.InventoryItem;
 import com.wms.warehouse_management_system.entities.Product;
 import com.wms.warehouse_management_system.entities.StorageBin;
 import com.wms.warehouse_management_system.entities.Warehouse;
-import com.wms.warehouse_management_system.repositorys.ProductRepository;
 import com.wms.warehouse_management_system.services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.util.*;
 
 @Component
@@ -95,33 +94,25 @@ public class DatabaseInitializer implements CommandLineRunner {
 
     public void storeInventoryItems(){
         List<Product> products = productService.getAllProducts();
-
         Random random = new Random();
         for(Product product : products){
-            List<StorageBinResponseDto> storageBins = storageBinService.getAllBins();
-            List<StorageBinResponseDto> copyOfStorageBins = new ArrayList<>(storageBins);
 
-            InventoryItemRequestDto inventoryItemRequestDto = new InventoryItemRequestDto();
-            inventoryItemRequestDto.setProductId(product.getProductId());
-            List<InventoryItemQuantityRequestDto> itemQuantityRequestDtos = new ArrayList<>();
-            Collections.shuffle(copyOfStorageBins);
-            List<StorageBinResponseDto> selectedStorageBins = List.of(copyOfStorageBins.get(0), copyOfStorageBins.get(1));
+            List<InventoryItemRequestDto> inventoryItemRequestDtos = new ArrayList<>();
+            for (int i = 0; i < 2; i++) {
+                List<StorageBinResponseDto> storageBins = storageBinService.getAllBins();
+                List<StorageBinResponseDto> copyOfStorageBins = new ArrayList<>(storageBins);
+                Collections.shuffle(copyOfStorageBins);
+                InventoryItemRequestDto inventoryItemRequestDto = new InventoryItemRequestDto();
+                inventoryItemRequestDto.setProductId(product.getProductId());
+                StorageBinResponseDto storageBinResponseDto = copyOfStorageBins.get(0);
+                inventoryItemRequestDto.setStorageBinId(storageBinResponseDto.getBinId());
 
-            for (int j = 0; j < 2; j++) {
-                StorageBinResponseDto storageBinResponseDto = selectedStorageBins.get(j);
-                InventoryItemQuantityRequestDto inventoryItemQuantityRequestDto = new InventoryItemQuantityRequestDto();
                 int qty = random.nextInt(0, storageBinResponseDto.getAvailableCapacity()-1);
-                System.out.println("productId::"+product.getProductId()+", binId::"+storageBinResponseDto.getBinId()+", qty::"+qty+", getAvailableCapacity::"+(storageBinResponseDto.getAvailableCapacity()-1));
-                inventoryItemQuantityRequestDto.setQuantity(qty);
-                inventoryItemQuantityRequestDto.setStorageBinId(storageBinResponseDto.getBinId());
-                itemQuantityRequestDtos.add(inventoryItemQuantityRequestDto);
+                inventoryItemRequestDto.setQuantity(qty);
+                inventoryItemRequestDtos.add(inventoryItemRequestDto);
             }
-
-            inventoryItemRequestDto.setRows(itemQuantityRequestDtos);
-            inventoryService.createInventory(inventoryItemRequestDto);
+            inventoryService.createInventory(inventoryItemRequestDtos);
         }
-
-
     }
 
 

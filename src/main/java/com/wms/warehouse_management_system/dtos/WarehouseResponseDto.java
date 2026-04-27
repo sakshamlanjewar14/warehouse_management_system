@@ -11,5 +11,5 @@ public class WarehouseResponseDto {
     private String name;
     private String location;
     private Integer capacity;
-    private List<StorageBin> storageBins;
+    private List<StorageBinResponseDto> storageBins;
 }

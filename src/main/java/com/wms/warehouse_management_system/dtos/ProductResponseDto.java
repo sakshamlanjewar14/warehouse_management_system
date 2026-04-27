@@ -17,5 +17,5 @@ public class ProductResponseDto {
     private BigDecimal price;
     private Double weight;
     private String imageUrl;
-    private List<InventoryItem> inventoryItems;
+    private List<InventoryItemResponseDto> inventoryItems;
 }

@@ -1,6 +1,7 @@
 package com.wms.warehouse_management_system.controllers;
 
 import com.wms.warehouse_management_system.common.ApiResponse;
+import com.wms.warehouse_management_system.dtos.WarehouseResponseDto;
 import com.wms.warehouse_management_system.entities.Warehouse;
 import com.wms.warehouse_management_system.services.WarehouseService;
 import lombok.AllArgsConstructor;
@@ -22,9 +23,9 @@ public class WarehouseController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Warehouse>> createWarehouse(@RequestBody Warehouse warehouse){
+    public ResponseEntity<ApiResponse<WarehouseResponseDto>> createWarehouse(@RequestBody Warehouse warehouse){
         try {
-            Warehouse savedWarShouse = warehouseService.createWarehouse(warehouse);
+            WarehouseResponseDto savedWarShouse = warehouseService.createWarehouse(warehouse);
             return ResponseEntity.ok(ApiResponse.success(savedWarShouse));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponse.error(e.getMessage()));
@@ -33,8 +34,8 @@ public class WarehouseController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Warehouse>>> getAllWarehouse(){
-        List<Warehouse> warehouseList = warehouseService.getAllWarehouses();
+    public ResponseEntity<ApiResponse<List<WarehouseResponseDto>>> getAllWarehouse(){
+        List<WarehouseResponseDto> warehouseList = warehouseService.getAllWarehouses();
         if(warehouseList.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.error("Warehouse not found"));
         }
@@ -42,13 +43,12 @@ public class WarehouseController {
     }
 
     @GetMapping("/{warehouseId}")
-    public ResponseEntity<ApiResponse<Warehouse>> getWarehouseById(@PathVariable("warehouseId") Long warehouseId){
-        Warehouse warehouse = warehouseService.getWarehouseById(warehouseId);
+    public ResponseEntity<ApiResponse<WarehouseResponseDto>> getWarehouseById(@PathVariable("warehouseId") Long warehouseId){
+        WarehouseResponseDto warehouse = warehouseService.getWarehouseById(warehouseId);
         if(warehouse == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.error("Warehouse of " + warehouseId + "is not found"));
         }
         return ResponseEntity.ok(ApiResponse.success(warehouse));
-
     }
 
     @DeleteMapping("/{warehouseId}")
@@ -63,9 +63,9 @@ public class WarehouseController {
     }
 
     @PutMapping("/{warehouseId}")
-    public ResponseEntity<ApiResponse<Warehouse>> updateWarehouse(@PathVariable("warehouseId") Long warehouseId, @RequestBody Warehouse warehouse){
+    public ResponseEntity<ApiResponse<WarehouseResponseDto>> updateWarehouse(@PathVariable("warehouseId") Long warehouseId, @RequestBody Warehouse warehouse){
         try {
-            Warehouse updatedWarehouse = warehouseService.updateWarehouse(warehouseId, warehouse);
+            WarehouseResponseDto updatedWarehouse = warehouseService.updateWarehouse(warehouseId, warehouse);
             if(updatedWarehouse == null){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.error("Warehouse not found"));
             }

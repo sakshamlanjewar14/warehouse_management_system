@@ -9,9 +9,9 @@ public class StockTransferItemRequestDto {
 
     private Long id;
 
-    private StockTransfer stockTransfer;
+    private Long stockTransferId;
 
-    private Product product;
+    private Long productId;
 
     private Integer quantity;
 }

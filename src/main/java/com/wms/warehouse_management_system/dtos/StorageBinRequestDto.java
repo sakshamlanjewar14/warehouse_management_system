@@ -8,11 +8,12 @@ import java.util.List;
 @Data
 public class StorageBinRequestDto {
 
+    private Long binId;
+
     private String binCode;
 
     private Integer totalCapacity;
 
-    private String warehouseName;
+    private Long warehouseId;
 
-    private List<InventoryItem> inventoryItems;
 }

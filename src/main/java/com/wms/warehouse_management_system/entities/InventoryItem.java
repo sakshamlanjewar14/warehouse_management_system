@@ -34,12 +34,4 @@ public class InventoryItem extends BaseEntity{
     @JsonIgnore
     private StorageBin storageBin;
 
-    public InventoryItemResponseDto toResponseDto(){
-        InventoryItemResponseDto inventoryItemResponseDto = new InventoryItemResponseDto();
-        inventoryItemResponseDto.setInventoryItemId(this.getInventoryItemId());
-        inventoryItemResponseDto.setQuantity(this.getQuantity());
-        inventoryItemResponseDto.setProductName(this.getProduct().getName());
-        inventoryItemResponseDto.setStorageBinCode(this.getStorageBin().getBinCode());
-        return inventoryItemResponseDto;
-    }
 }

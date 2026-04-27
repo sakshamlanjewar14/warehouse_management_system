@@ -2,6 +2,7 @@ package com.wms.warehouse_management_system.controllers;
 
 
 import com.wms.warehouse_management_system.common.ApiResponse;
+import com.wms.warehouse_management_system.dtos.StorageBinRequestDto;
 import com.wms.warehouse_management_system.dtos.StorageBinResponseDto;
 import com.wms.warehouse_management_system.entities.StorageBin;
 import com.wms.warehouse_management_system.services.StorageBinService;
@@ -24,7 +25,7 @@ public class StorageBinController {
     @PostMapping("/{warehouseId}")
     public ResponseEntity<ApiResponse<StorageBinResponseDto>> createBin(
             @PathVariable ("warehouseId") Long warehouseId,
-            @RequestBody StorageBin storageBin){
+            @RequestBody StorageBinRequestDto storageBin){
         try {
             StorageBinResponseDto savedStorageBin = storageBinService.createBin(warehouseId, storageBin);
             return ResponseEntity.ok(ApiResponse.success(savedStorageBin));

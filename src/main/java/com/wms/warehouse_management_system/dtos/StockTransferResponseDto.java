@@ -1,7 +1,5 @@
 package com.wms.warehouse_management_system.dtos;
 
-import com.wms.warehouse_management_system.entities.StockTransferItem;
-import com.wms.warehouse_management_system.entities.Warehouse;
 import com.wms.warehouse_management_system.enums.TransferStatus;
 import lombok.Data;
 
@@ -12,11 +10,11 @@ import java.util.List;
 public class StockTransferResponseDto {
     private Long id;
 
-    private Warehouse sourceWarehouse;
+    private WarehouseResponseDto sourceWarehouse;
 
-    private Warehouse destinationWarehouse;
+    private WarehouseResponseDto destinationWarehouse;
 
     private TransferStatus status;
 
-    private List<StockTransferItem> stockTransferItems = new ArrayList<>();
+    private List<StockTransferItemResponseDto> stockTransferItems = new ArrayList<>();
 }

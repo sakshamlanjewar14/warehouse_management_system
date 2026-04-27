@@ -7,9 +7,13 @@ import lombok.Data;
 
 @Data
 public class InventoryItemResponseDto {
+
     private Long inventoryItemId;
+
     private Integer quantity;
+
     private String productName;
+
     private String storageBinCode;
 }
 

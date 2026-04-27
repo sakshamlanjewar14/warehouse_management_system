@@ -1,9 +1,12 @@
 package com.wms.warehouse_management_system.services;
 
+import com.wms.warehouse_management_system.dtos.StorageBinRequestDto;
 import com.wms.warehouse_management_system.dtos.StorageBinResponseDto;
 import com.wms.warehouse_management_system.entities.StorageBin;
 import com.wms.warehouse_management_system.entities.Warehouse;
+import com.wms.warehouse_management_system.mapper.StorageBinMapper;
 import com.wms.warehouse_management_system.repositorys.StorageBinRepository;
+import com.wms.warehouse_management_system.repositorys.WarehouseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,29 +22,36 @@ public class StorageBinService {
 
     private final StorageBinRepository storageBinRepository;
     private final WarehouseService warehouseService;
+    private final StorageBinMapper storageBinMapper;
 
     private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final Random RANDOM = new Random();
 
 
 //    Create storagebin
-    public StorageBinResponseDto createBin(Long warehouseId, StorageBin bin){
-        bin.setBinCode(getUniqueBinCode());
-        StorageBin savedStorageBin = storageBinRepository.save(bin);
-        List<StorageBin> storageBinList = this.getAllBinsByWarehouseId(warehouseId);
-        warehouseService.updateWarehouseCapacityByWarehouseId(storageBinList, warehouseId);
-        return savedStorageBin.toResponseDto();
+    public StorageBinResponseDto createBin(Long warehouseId, StorageBinRequestDto requestDto){
+        requestDto.setBinCode(getUniqueBinCode());
+        Warehouse warehouse = warehouseService.getWarehouseEntityById(warehouseId);
+        if (warehouse != null){
+            StorageBin storageBin = storageBinMapper.mapRequestDtoToStorageBinEntity(requestDto, warehouse);
+            StorageBin savedStorageBin = storageBinRepository.save(storageBin);
+
+            List<StorageBin> storageBinList = this.getAllBinsByWarehouseId(warehouseId);
+            warehouseService.updateWarehouseCapacityByWarehouseId(storageBinList, warehouseId);
+            return storageBinMapper.mapEntityToStorageBinResponseDto(savedStorageBin);
+        }
+        return null;
     }
 
 //    Get All bins
     public List<StorageBinResponseDto> getAllBins(){
-        return storageBinRepository.findAll().stream().map(StorageBin::toResponseDto).toList();
+        return storageBinRepository.findAll().stream().map(storageBinMapper::mapEntityToStorageBinResponseDto).toList();
     }
 
 //    Get bins by id
     public StorageBinResponseDto getBinById(Long storageBinId){
         Optional<StorageBin> storageBinOptional = storageBinRepository.findById(storageBinId);
-        return storageBinOptional.map(StorageBin::toResponseDto).orElse(null);
+        return storageBinOptional.map(storageBinMapper::mapEntityToStorageBinResponseDto).orElse(null);
     }
 
 //    Update bin by id
@@ -57,7 +67,7 @@ public class StorageBinService {
             StorageBin updatedStorageBin = storageBinRepository.save(storageBin);
             List<StorageBin> storageBinList = this.getAllBinsByWarehouseId(warehouseId);
             warehouseService.updateWarehouseCapacityByWarehouseId(storageBinList, warehouseId);
-            return updatedStorageBin.toResponseDto();
+            return storageBinMapper.mapEntityToStorageBinResponseDto(updatedStorageBin);
         }
         return  null;
     }

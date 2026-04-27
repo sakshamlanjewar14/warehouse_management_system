@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 public class ProductRequestDto {
-
+    private Long productId;
     private String name;
     private String sku;
     private String description;
@@ -16,5 +16,4 @@ public class ProductRequestDto {
     private BigDecimal price;
     private Double weight;
     private String imageUrl;
-    private List<InventoryItem> inventoryItems;
 }

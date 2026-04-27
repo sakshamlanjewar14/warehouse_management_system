@@ -10,5 +10,4 @@ public class WarehouseRequestDto {
     private String name;
     private String location;
     private Integer capacity;
-    private List<StorageBin> storageBins;
 }
