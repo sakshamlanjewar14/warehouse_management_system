@@ -51,7 +51,7 @@ public class InboundShipmentController {
     @GetMapping("/{shipmentId}")
     public ResponseEntity<ApiResponse<Map<String, Object>>> getInboundShipmentById(
             @PathVariable("shipmentId") Long shipmentId,
-            @PathVariable("supplierId") Long supplierId){
+            @RequestParam("supplierId") Long supplierId){
         Map<String, Object> responseMap = new HashMap<>();
 
 //        For the inboundshipment

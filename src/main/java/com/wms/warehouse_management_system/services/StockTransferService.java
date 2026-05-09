@@ -88,7 +88,7 @@ public class StockTransferService {
 
 //    delete transfer
     @Transactional
-    public void deleteStockTransfer(Long id){
+        public void deleteStockTransfer(Long id){
         stokTransferRepository.deleteById(id);
     }
 
