@@ -1,6 +1,7 @@
 package com.wms.warehouse_management_system.controllers;
 
 import com.wms.warehouse_management_system.common.ApiResponse;
+import com.wms.warehouse_management_system.dtos.ProductResponseDto;
 import com.wms.warehouse_management_system.entities.Product;
 import com.wms.warehouse_management_system.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,10 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Product>> createProduct(@RequestBody Product product){
+    public ResponseEntity<ApiResponse<ProductResponseDto>> createProduct(@RequestBody Product product){
         System.out.println("product::"+product);
         try{
-            Product savedProduct = productService.createProduct(product);
+            ProductResponseDto savedProduct = productService.createProduct(product);
             return ResponseEntity.ok(ApiResponse.success(savedProduct));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -35,18 +36,18 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Product>>> getAllProduct(){
-        List<Product> products = productService.getAllProducts();
-        if(products.isEmpty()){
+    public ResponseEntity<ApiResponse<List<ProductResponseDto>>> getAllProduct(){
+        List<ProductResponseDto> productsList = productService.getAllProducts();
+        if(productsList.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ApiResponse.error("Products Not Found"));
         }
-        return ResponseEntity.ok(ApiResponse.success(products));
+        return ResponseEntity.ok(ApiResponse.success(productsList));
     }
 
     @GetMapping("/{productId}")
-    public ResponseEntity<ApiResponse<Product>> getProductById(@PathVariable("productId") Long productId){
-        Product product = productService.getProductById(productId);
+    public ResponseEntity<ApiResponse<ProductResponseDto>> getProductById(@PathVariable("productId") Long productId){
+        ProductResponseDto product = productService.getProductById(productId);
         if(product == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ApiResponse.error("Product Not Found For Id :"+ productId));
@@ -66,9 +67,9 @@ public class ProductController {
     }
 
     @PutMapping("/{productId}")
-    public ResponseEntity<ApiResponse<Product>> updateProduct(@PathVariable("productId") Long productId, @RequestBody Product product){
+    public ResponseEntity<ApiResponse<ProductResponseDto>> updateProduct(@PathVariable("productId") Long productId, @RequestBody Product product){
         try {
-            Product updatedProduct = productService.updateProduct(productId,product);
+            ProductResponseDto updatedProduct = productService.updateProduct(productId,product);
             if(updatedProduct == null){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.error("Product not found"));
             }

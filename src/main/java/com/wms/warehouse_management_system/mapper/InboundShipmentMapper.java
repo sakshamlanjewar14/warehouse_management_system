@@ -40,6 +40,7 @@ public class InboundShipmentMapper {
 
     public InboundShipmentItemResponseDto mapEntityToInboundShipmentItemResponseDto(InboundShipmentItem entity){
         InboundShipmentItemResponseDto responseDto = new InboundShipmentItemResponseDto();
+        responseDto.setShipmentItemId(entity.getShipmentItemId());
         responseDto.setProductId(entity.getProductId());
         responseDto.setExpectedQty(entity.getExpectedQty());
         responseDto.setReceivedQty(entity.getReceivedQty());

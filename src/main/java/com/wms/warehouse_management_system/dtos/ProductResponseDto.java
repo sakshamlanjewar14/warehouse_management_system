@@ -5,6 +5,7 @@ import com.wms.warehouse_management_system.entities.InventoryItem;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -17,5 +18,6 @@ public class ProductResponseDto {
     private BigDecimal price;
     private Double weight;
     private String imageUrl;
+    private LocalDateTime createdAt;
     private List<InventoryItemResponseDto> inventoryItems;
 }

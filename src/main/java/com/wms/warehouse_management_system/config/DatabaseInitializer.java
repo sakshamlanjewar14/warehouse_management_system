@@ -2,10 +2,7 @@ package com.wms.warehouse_management_system.config;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wms.warehouse_management_system.dtos.InventoryItemRequestDto;
-import com.wms.warehouse_management_system.dtos.InventoryItemResponseDto;
-import com.wms.warehouse_management_system.dtos.StorageBinResponseDto;
-import com.wms.warehouse_management_system.dtos.SupplierRequestDto;
+import com.wms.warehouse_management_system.dtos.*;
 import com.wms.warehouse_management_system.entities.InventoryItem;
 import com.wms.warehouse_management_system.entities.Product;
 import com.wms.warehouse_management_system.entities.StorageBin;
@@ -93,9 +90,9 @@ public class DatabaseInitializer implements CommandLineRunner {
     }
 
     public void storeInventoryItems(){
-        List<Product> products = productService.getAllProducts();
+        List<ProductResponseDto> products = productService.getAllProducts();
         Random random = new Random();
-        for(Product product : products){
+        for(ProductResponseDto product : products){
 
             List<InventoryItemRequestDto> inventoryItemRequestDtos = new ArrayList<>();
             for (int i = 0; i < 2; i++) {

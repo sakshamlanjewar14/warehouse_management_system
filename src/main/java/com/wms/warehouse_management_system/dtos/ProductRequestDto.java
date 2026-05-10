@@ -4,7 +4,6 @@ import com.wms.warehouse_management_system.entities.InventoryItem;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Data
 public class ProductRequestDto {

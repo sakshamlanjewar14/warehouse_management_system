@@ -20,6 +20,7 @@ public class OutboundShipmentMapper {
 //    response for  entity to dto
     public OutboundShipmentResponseDto mapEntityToOutboundShipmentResponseDto(OutboundShipment entity){
         OutboundShipmentResponseDto responseDto = new OutboundShipmentResponseDto();
+        responseDto.setShipmentId(entity.getShipmentId());
         responseDto.setShipmentNumber(entity.getShipmentNumber());
         responseDto.setCustomerName(entity.getCustomerName());
         responseDto.setStatus(entity.getStatus());
@@ -38,6 +39,8 @@ public class OutboundShipmentMapper {
 
     public OutboundShipmentItemResponseDto mapEntityToOutboundShipmentItemResponseDto(OutboundShipmentItem entity){
         OutboundShipmentItemResponseDto responseDto = new OutboundShipmentItemResponseDto();
+        responseDto.setShipmentItemId(entity.getShipmentItemId());
+        responseDto.setQuantity(entity.getQuantity());
        responseDto.setShipmentId(entity.getOutboundShipment().getShipmentId());
        responseDto.setProductId(entity.getProduct().getProductId());
        responseDto.setProductName(entity.getProduct().getName());
