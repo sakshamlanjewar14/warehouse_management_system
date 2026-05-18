@@ -59,7 +59,7 @@ public class StorageBinController {
     public ResponseEntity<ApiResponse<StorageBinResponseDto>> updateBin(
             @PathVariable ("warehouseId") Long warehouseId,
             @PathVariable ("storageBinId") Long storageBinId,
-            @RequestBody StorageBin storageBin){
+            @RequestBody StorageBinRequestDto storageBin){
         try {
             StorageBinResponseDto updatedStorageBin = storageBinService.updateBin(warehouseId, storageBinId, storageBin);
             if(updatedStorageBin == null){

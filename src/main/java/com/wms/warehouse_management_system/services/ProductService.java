@@ -1,5 +1,6 @@
 package com.wms.warehouse_management_system.services;
 
+import com.wms.warehouse_management_system.dtos.ProductRequestDto;
 import com.wms.warehouse_management_system.dtos.ProductResponseDto;
 import com.wms.warehouse_management_system.entities.Product;
 import com.wms.warehouse_management_system.mapper.ProductMapper;
@@ -19,9 +20,11 @@ public class ProductService {
     private final  ProductRepository productRepository;
     private final ProductMapper productMapper;
 
+
     @Transactional
     // Create the product
-    public ProductResponseDto createProduct(Product product){
+    public ProductResponseDto createProduct(ProductRequestDto requestDto){
+        Product product = productMapper.mapRequestDtoToProductEntity(requestDto);
         Product savedProduct = productRepository.save(product);
         return productMapper.mapEntityToProductResponseDto(savedProduct);
     }
@@ -29,8 +32,8 @@ public class ProductService {
     @Transactional(readOnly = true)
     //Get all product
     public List<ProductResponseDto> getAllProducts(){
-
-        return productRepository.findAll().stream().map(productMapper::mapEntityToProductResponseDto).toList();
+        List<Product> products = productRepository.findAll();
+        return products.stream().map(productMapper::mapEntityToProductResponseDto).toList();
     }
 
     @Transactional(readOnly = true)
@@ -51,21 +54,21 @@ public class ProductService {
 
     @Transactional
     //update product
-    public ProductResponseDto updateProduct(Long productId, Product productDetails) {
+    public ProductResponseDto updateProduct(Long productId, ProductRequestDto requestDto) {
 //        Checking the productId or  productDetailsId
-        if(!Objects.equals(productId, productDetails.getProductId())){
+        if(!Objects.equals(productId, requestDto.getProductId())){
             return null;
         }
         Product product = productRepository.findById(productId).orElse(null);
 
         if (product != null){
-            product.setName(productDetails.getName());
-            product.setSku(productDetails.getSku());
-            product.setDescription(productDetails.getDescription());
-            product.setBarcode(productDetails.getBarcode());
-            product.setPrice(productDetails.getPrice());
-            product.setWeight(productDetails.getWeight());
-            product.setImageUrl(productDetails.getImageUrl());
+            product.setName(requestDto.getName());
+            product.setSku(requestDto.getSku());
+            product.setDescription(requestDto.getDescription());
+            product.setBarcode(requestDto.getBarcode());
+            product.setPrice(requestDto.getPrice());
+            product.setWeight(requestDto.getWeight());
+            product.setImageUrl(requestDto.getImageUrl());
             Product savedProduct = productRepository.save(product);
             return productMapper.mapEntityToProductResponseDto(savedProduct);
         }

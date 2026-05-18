@@ -55,22 +55,48 @@ public class StorageBinService {
     }
 
 //    Update bin by id
-    public StorageBinResponseDto updateBin(Long warehouseId, Long storageBinId, StorageBin storageBinDetails){
-        if(!Objects.equals(storageBinId, storageBinDetails.getBinId())){
-            return null;
-        }
-        StorageBin storageBin = storageBinRepository.findById(storageBinId).orElse(null);
+public StorageBinResponseDto updateBin(Long warehouseId, Long storageBinId, StorageBinRequestDto storageBinDetails){
 
-        if(storageBin != null){
-            storageBin.setBinCode(storageBin.getBinCode());
-            storageBin.setCapacity(storageBinDetails.getCapacity());
-            StorageBin updatedStorageBin = storageBinRepository.save(storageBin);
-            List<StorageBin> storageBinList = this.getAllBinsByWarehouseId(warehouseId);
-            warehouseService.updateWarehouseCapacityByWarehouseId(storageBinList, warehouseId);
-            return storageBinMapper.mapEntityToStorageBinResponseDto(updatedStorageBin);
-        }
-        return  null;
+    StorageBin storageBin = storageBinRepository.findById(storageBinId).orElse(null);
+
+    if(storageBin != null){
+
+        storageBin.setBinCode(storageBinDetails.getBinCode());
+
+        storageBin.setCapacity(storageBinDetails.getTotalCapacity());
+
+        Warehouse warehouse = warehouseService.getWarehouseEntityById(storageBinDetails.getWarehouseId());
+
+        storageBin.setWarehouse(warehouse);
+
+        StorageBin updatedStorageBin = storageBinRepository.save(storageBin);
+
+        List<StorageBin> storageBinList = this.getAllBinsByWarehouseId(warehouseId);
+
+        warehouseService.updateWarehouseCapacityByWarehouseId(storageBinList, warehouseId);
+
+        return storageBinMapper.mapEntityToStorageBinResponseDto(updatedStorageBin);
     }
+
+    return null;
+}
+
+//    public StorageBinResponseDto updateBin(Long warehouseId, Long storageBinId, StorageBinRequestDto storageBinDetails){
+//        if(!Objects.equals(storageBinId, storageBinDetails.getBinId())){
+//            return null;
+//        }
+//        StorageBin storageBin = storageBinRepository.findById(storageBinId).orElse(null);
+//
+//        if(storageBin != null){
+//            storageBin.setBinCode(storageBin.getBinCode());
+//            storageBin.setCapacity(storageBin.getCapacity());
+//            StorageBin updatedStorageBin = storageBinRepository.save(storageBin);
+//            List<StorageBin> storageBinList = this.getAllBinsByWarehouseId(warehouseId);
+//            warehouseService.updateWarehouseCapacityByWarehouseId(storageBinList, warehouseId);
+//            return storageBinMapper.mapEntityToStorageBinResponseDto(updatedStorageBin);
+//        }
+//        return  null;
+//    }
 
 //    Delete bin by id
     public void deleteBin(Long warehouseId, Long storageBinId){

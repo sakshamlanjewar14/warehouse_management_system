@@ -21,8 +21,8 @@ public class StockTransferController {
     @PostMapping
     public ResponseEntity<ApiResponse<StockTransferResponseDto>> createStockTransfer(@RequestBody StockTransferRequestDto stockTransfer){
         try{
-            StockTransferResponseDto savedStockTransfrerItem = stockTransferService.createStockTransfer(stockTransfer);
-            return ResponseEntity.ok(ApiResponse.success(savedStockTransfrerItem));
+            StockTransferResponseDto savedStockTransferItem = stockTransferService.createStockTransfer(stockTransfer);
+            return ResponseEntity.ok(ApiResponse.success(savedStockTransferItem));
         } catch (Exception e) {
             return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(ApiResponse.error(e.getMessage()));

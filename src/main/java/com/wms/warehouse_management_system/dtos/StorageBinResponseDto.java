@@ -16,6 +16,8 @@ public class StorageBinResponseDto {
 
     private Integer availableCapacity;
 
+    private Long warehouseId;
+
     private String warehouseName;
 
     private List<InventoryItemResponseDto> inventoryItems;

@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 public class WarehouseRequestDto {
+    private Long warehouseId;
     private String name;
     private String location;
     private Integer capacity;

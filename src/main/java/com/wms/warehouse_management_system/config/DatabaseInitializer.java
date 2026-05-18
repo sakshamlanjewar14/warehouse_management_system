@@ -42,9 +42,9 @@ public class DatabaseInitializer implements CommandLineRunner {
         if (productService.getAllProducts().isEmpty()) {
             ClassPathResource resource = new ClassPathResource("products.json");
             InputStream inputStream = resource.getInputStream();
-            List<Product> products = objectMapper.readValue(
+            List<ProductRequestDto> products = objectMapper.readValue(
                     inputStream,
-                    new TypeReference<List<Product>>() {}
+                    new TypeReference<List<ProductRequestDto>>() {}
             );
             products.forEach(productService::createProduct);
         }

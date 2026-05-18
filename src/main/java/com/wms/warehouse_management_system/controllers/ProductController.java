@@ -1,6 +1,7 @@
 package com.wms.warehouse_management_system.controllers;
 
 import com.wms.warehouse_management_system.common.ApiResponse;
+import com.wms.warehouse_management_system.dtos.ProductRequestDto;
 import com.wms.warehouse_management_system.dtos.ProductResponseDto;
 import com.wms.warehouse_management_system.entities.Product;
 import com.wms.warehouse_management_system.services.ProductService;
@@ -24,7 +25,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<ProductResponseDto>> createProduct(@RequestBody Product product){
+    public ResponseEntity<ApiResponse<ProductResponseDto>> createProduct(@RequestBody ProductRequestDto product){
         System.out.println("product::"+product);
         try{
             ProductResponseDto savedProduct = productService.createProduct(product);
@@ -67,9 +68,10 @@ public class ProductController {
     }
 
     @PutMapping("/{productId}")
-    public ResponseEntity<ApiResponse<ProductResponseDto>> updateProduct(@PathVariable("productId") Long productId, @RequestBody Product product){
+    public ResponseEntity<ApiResponse<ProductResponseDto>> updateProduct(@PathVariable("productId") Long productId,
+                                                                         @RequestBody ProductRequestDto requestDto){
         try {
-            ProductResponseDto updatedProduct = productService.updateProduct(productId,product);
+            ProductResponseDto updatedProduct = productService.updateProduct(productId,requestDto);
             if(updatedProduct == null){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponse.error("Product not found"));
             }

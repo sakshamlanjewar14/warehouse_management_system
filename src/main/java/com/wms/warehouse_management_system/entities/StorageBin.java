@@ -29,7 +29,7 @@ public class StorageBin extends BaseEntity {
     @Column(unique = true)
     private String binCode;
 
-    @Column
+    @Column(nullable = false)
     private Integer capacity;
 
     @ManyToOne //Many StorageBins → One Warehouse

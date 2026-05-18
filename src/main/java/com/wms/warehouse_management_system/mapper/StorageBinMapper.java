@@ -25,10 +25,23 @@ public class StorageBinMapper {
         responseDto.setBinCode(entity.getBinCode());
         responseDto.setTotalCapacity(entity.getCapacity());
 
+//        responseDto.setTotalCapacity(
+//                entity.getCapacity() != null
+//                        ? entity.getCapacity()
+//                        : 0
+//        );
+
         int totalOccupiedCapacity = entity.getInventoryItems().stream().mapToInt(InventoryItem::getQuantity).sum();
         int availableBinCapacity = entity.getCapacity() - totalOccupiedCapacity;
 
+//        Integer totalCapacity = entity.getCapacity() != null
+//                ? entity.getCapacity()
+//                : 0;
+//
+//        int availableBinCapacity = totalCapacity - totalOccupiedCapacity;
+
         responseDto.setAvailableCapacity(availableBinCapacity);
+        responseDto.setWarehouseId(entity.getWarehouse().getWarehouseId());
         responseDto.setWarehouseName(entity.getWarehouse().getName());
         List<InventoryItemResponseDto> inventoryItemList = new ArrayList<>();
         if (entity.getInventoryItems() != null){
